@@ -1,0 +1,11 @@
+name: Coinz
+main: dev.mCraft.RealMoney.Main
+version: 0.0.9
+depend: [Spout, Vault]
+permissions:
+  coinz.tellerblock:
+    description: Gives permission to craft the teller block.
+    default: false
+  coinz.craftgoldcoin:
+    description: Allows the player to craft gold coins from gold nuggets.
+    default: false
