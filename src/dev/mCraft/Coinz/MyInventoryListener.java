@@ -1,5 +1,8 @@
 package dev.mCraft.Coinz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.Event.Result;
@@ -26,6 +29,7 @@ public class MyInventoryListener extends InventoryListener {
 
 	private Inventory inv;
 	private Location loc;
+	private ItemStack[] stack;
 	
 	private String invName;
 	private int slotNum;
@@ -71,9 +75,24 @@ public class MyInventoryListener extends InventoryListener {
 	public void onInventoryClose(InventoryCloseEvent event) {
 		inv = event.getInventory();
 		loc = event.getLocation();
+		stack = inv.getContents();
 		
 		if (inv.getName() == "Vault") {
 			vault.vaultInv.put(loc, inv.getContents());
+			
+			List<ItemStack> temp = new ArrayList<ItemStack>();
+			temp.add(stack[0]);
+			temp.add(stack[1]);
+			temp.add(stack[2]);
+			temp.add(stack[3]);
+			temp.add(stack[4]);
+			temp.add(stack[5]);
+			temp.add(stack[6]);
+			temp.add(stack[7]);
+			temp.add(stack[8]);
+			
+			vault.vaults.set(loc.toString(), temp);
+			plugin.saveConfig();
 		}
 	}
 	

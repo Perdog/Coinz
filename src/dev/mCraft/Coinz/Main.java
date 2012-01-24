@@ -1,6 +1,5 @@
 package dev.mCraft.Coinz;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
@@ -22,13 +21,11 @@ import org.getspout.spoutapi.material.MaterialData;
 
 import dev.mCraft.Coinz.Blocks.Blocks;
 import dev.mCraft.Coinz.Coins.Items;
-import dev.mCraft.Coinz.GUI.ButtonListener;
+import dev.mCraft.Coinz.GUI.TellerListener;
 
 public class Main extends JavaPlugin {
 	
 	public static Main instance;
-	
-	public List<String> allTextures;
 	
 	public String tag = "[Coinz]";
 	private String name;
@@ -119,7 +116,7 @@ public class Main extends JavaPlugin {
 		createItems();
 		cookRecipes();
 		
-		this.getServer().getPluginManager().registerEvent(Type.CUSTOM_EVENT, new ButtonListener(), Priority.Normal, this);
+		this.getServer().getPluginManager().registerEvent(Type.CUSTOM_EVENT, new TellerListener(), Priority.Normal, this);
 		this.getServer().getPluginManager().registerEvent(Type.BLOCK_PLACE, new MyBlockListener(), Priority.Normal, this);
 		this.getServer().getPluginManager().registerEvent(Type.PLAYER_INTERACT_ENTITY, new MyPlayerListener(), Priority.Normal, this);
 		this.getServer().getPluginManager().registerEvent(Type.PLAYER_INTERACT, new MyPlayerListener(), Priority.Normal, this);

@@ -1,5 +1,5 @@
 name: Coinz
-main: dev.mCraft.RealMoney.Main
+main: dev.mCraft.Coinz.Main
 version: 0.0.9
 depend: [Spout, Vault]
 permissions:
