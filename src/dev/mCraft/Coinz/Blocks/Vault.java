@@ -1,9 +1,6 @@
 package dev.mCraft.Coinz.Blocks;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
@@ -38,28 +35,17 @@ public class Vault extends GenericCuboidCustomBlock {
 	
 	@Override
 	public boolean onBlockInteract(World world, int x, int y, int z, SpoutPlayer player) {
-		plugin.reloadConfig();
+		builder = SpoutManager.getInventoryBuilder();
 		Location loc = new Location(world, x, y ,z);
-		ItemStack[] stack = new ItemStack[9];
-		@SuppressWarnings("unchecked")
-		List<ItemStack> asd = vaults.getList(loc.toString());
+		ItemStack[] stack = vaultInv.get(loc);
 		
-		stack[0] = asd.get(1);
-		stack[1] = asd.get(2);
-		stack[2] = asd.get(3);
-		stack[3] = asd.get(4);
-		stack[4] = asd.get(5);
-		stack[5] = asd.get(6);
-		stack[6] = asd.get(7);
-		stack[7] = asd.get(8);
-		stack[8] = asd.get(9);
-		
-		Inventory Vault = SpoutManager.getInventoryBuilder().construct(stack, "Vault");
+		Inventory Vault = builder.construct(stack, "Vault");
 		return player.openInventoryWindow(Vault, loc);
 	}
 	
 	@Override
 	public void onBlockPlace(World world, int x, int y, int z, LivingEntity entity) {
+		Location loc = new Location(world, x, y, z);
 		builder = SpoutManager.getInventoryBuilder();
 		
 		ItemStack[] stack = new ItemStack[9];
@@ -73,16 +59,8 @@ public class Vault extends GenericCuboidCustomBlock {
 		stack[7] = plugin.HalfPlatinumCoin;
 		stack[8] = plugin.PlatinumCoin;
 		
-		List<ItemStack[]> temp = new ArrayList<ItemStack[]>();
-		temp.add(stack);
-		
-		
-		Location loc = new Location(world, x, y, z);
 		builder.construct(stack, "Vault");
-		
 		vaultInv.put(loc, stack);
-		vaults.set(loc.toString(), temp);
-		plugin.saveConfig();
 	}
 
 	@Override
@@ -90,7 +68,5 @@ public class Vault extends GenericCuboidCustomBlock {
 		Location loc = new Location(world, x, y, z);
 		
 		vaultInv.remove(loc);
-		vaults.set(loc.toString(), null);
-		plugin.saveConfig();
 	}
 }
