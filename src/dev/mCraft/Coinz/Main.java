@@ -22,6 +22,7 @@ import org.getspout.spoutapi.material.MaterialData;
 import dev.mCraft.Coinz.Blocks.Blocks;
 import dev.mCraft.Coinz.Coins.Items;
 import dev.mCraft.Coinz.GUI.TellerListener;
+import dev.mCraft.Coinz.Metrics.MetricsRunnable;
 
 public class Main extends JavaPlugin {
 	
@@ -123,6 +124,9 @@ public class Main extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvent(Type.CUSTOM_EVENT, new MyInventoryListener(), Priority.Normal, this);
 		
 		log.info(name + " has been enabled");
+		
+		MetricsRunnable run = new MetricsRunnable();
+		this.getServer().getScheduler().scheduleAsyncDelayedTask(this, run, 300);
 	}
 	
 	public void onDisable() {
