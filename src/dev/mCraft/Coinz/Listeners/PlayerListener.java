@@ -1,20 +1,25 @@
-package dev.mCraft.Coinz;
+package dev.mCraft.Coinz.Listeners;
 
-import org.bukkit.Material;
-import org.bukkit.block.Block;
+import java.io.File;
+
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
-import org.bukkit.event.block.Action;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.player.FileManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class MyPlayerListener extends PlayerListener {
+import dev.mCraft.Coinz.Coinz;
+
+public class PlayerListener implements Listener {
 	
-	private Main plugin = Main.instance;
+	private Coinz plugin = Coinz.instance;
 	
 	private SpoutPlayer payer;
 	private Entity clicked;
@@ -24,31 +29,22 @@ public class MyPlayerListener extends PlayerListener {
 	private SpoutItemStack item;
 	private short dur;
 	
-	//private VaultInv vault;
-	private Action action;
+	private FileManager fm = SpoutManager.getFileManager();
 	
-	@Override
-	public void onPlayerQuit(PlayerQuitEvent event) {
-		//for (String file : fm.getCache(plugin)) {
-			//File image = new File(file);
-			//image.delete();
-		//}
+	public PlayerListener() {
+		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
-	@Override
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		//SpoutPlayer player = (SpoutPlayer) event.getPlayer();
-		Block block = event.getClickedBlock();
-		action = event.getAction();
-		if (action == Action.RIGHT_CLICK_BLOCK && block.getType() == Material.DIRT) {
-			//vault = new VaultInv(player);
-			//player.getMainScreen().attachPopupScreen(vault);
-			//player.sendMessage("Clicking dirt");
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void whenPlayerLeaves(PlayerQuitEvent event) {
+		for (String file : fm.getCache(plugin)) {
+			File image = new File(file);
+			image.delete();
 		}
 	}
 	
-	@Override
-	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void passCoins(PlayerInteractEntityEvent event) {
 		payer = (SpoutPlayer)event.getPlayer();
 		clicked = event.getRightClicked();
 		hand = payer.getItemInHand();

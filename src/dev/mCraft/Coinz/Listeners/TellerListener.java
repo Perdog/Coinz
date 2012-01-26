@@ -1,21 +1,30 @@
-package dev.mCraft.Coinz;
+package dev.mCraft.Coinz.Listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.event.block.BlockListener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.getspout.spoutapi.block.SpoutBlock;
 
-public class MyBlockListener extends BlockListener {
+import dev.mCraft.Coinz.Coinz;
+
+public class TellerListener implements Listener {
 	
-	public Main plugin = Main.instance;
+	public Coinz plugin = Coinz.instance;
 	
 	private SpoutBlock clicked;
 	private Block block;
 	private SpoutBlock placed;
-
-	@Override
-	public void onBlockPlace(BlockPlaceEvent event) {
+	
+	public TellerListener() {
+		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void placingTellerBlock(BlockPlaceEvent event) {
 		clicked = (SpoutBlock) event.getBlockAgainst();
 		block = event.getBlockPlaced();
 		placed = (SpoutBlock)block;

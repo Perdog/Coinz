@@ -2,11 +2,11 @@ package dev.mCraft.Coinz.Coins;
 
 import org.getspout.spoutapi.material.CustomItem;
 
-import dev.mCraft.Coinz.Main;
+import dev.mCraft.Coinz.Coinz;
 
 public class Items {
 	
-	private Main plugin = Main.instance;
+	private Coinz plugin = Coinz.instance;
 	public static Items hook;
 	
 	public CustomItem copperCoin;

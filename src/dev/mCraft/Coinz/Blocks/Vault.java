@@ -13,11 +13,11 @@ import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.block.GenericCuboidCustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import dev.mCraft.Coinz.Main;
+import dev.mCraft.Coinz.Coinz;
 
 public class Vault extends GenericCuboidCustomBlock {
 	
-	private static Main plugin = Main.instance;
+	private static Coinz plugin = Coinz.instance;
 	public static Vault hook;
 	public ConfigurationSection vaults = plugin.getConfig().getConfigurationSection("Vaults");
 	

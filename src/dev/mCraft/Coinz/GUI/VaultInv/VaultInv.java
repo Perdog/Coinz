@@ -5,11 +5,11 @@ import org.getspout.spoutapi.gui.GenericContainer;
 import org.getspout.spoutapi.gui.GenericTexture;
 import org.getspout.spoutapi.gui.RenderPriority;
 
-import dev.mCraft.Coinz.Main;
+import dev.mCraft.Coinz.Coinz;
 
 public class VaultInv extends GenericContainer {
 	
-	public Main plugin = Main.instance;
+	public Coinz plugin = Coinz.instance;
 	
 	public static VaultInv hook;
 	

@@ -7,12 +7,12 @@ import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.block.GenericCuboidCustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import dev.mCraft.Coinz.Main;
+import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.TellerMenu.Popup;
 
 public class Teller extends GenericCuboidCustomBlock {
 	
-	private static Main plugin = Main.instance;
+	private static Coinz plugin = Coinz.instance;
 	
 	public static int[] textID = {0, 1, 1, 1, 1, 2};
 	private Popup popup;

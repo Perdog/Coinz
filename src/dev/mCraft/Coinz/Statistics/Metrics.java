@@ -1,4 +1,4 @@
-package dev.mCraft.Coinz.Metrics;
+package dev.mCraft.Coinz.Statistics;
 
 import java.io.BufferedReader;
 import java.io.File;

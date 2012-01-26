@@ -6,8 +6,6 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event.Type;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,12 +19,18 @@ import org.getspout.spoutapi.material.MaterialData;
 
 import dev.mCraft.Coinz.Blocks.Blocks;
 import dev.mCraft.Coinz.Coins.Items;
-import dev.mCraft.Coinz.GUI.TellerListener;
-import dev.mCraft.Coinz.Metrics.MetricsRunnable;
+import dev.mCraft.Coinz.GUI.KeyPadListener;
+import dev.mCraft.Coinz.GUI.TellerScreenListener;
+import dev.mCraft.Coinz.Listeners.BlockListener;
+import dev.mCraft.Coinz.Listeners.InventoryListener;
+import dev.mCraft.Coinz.Listeners.PlayerListener;
+import dev.mCraft.Coinz.Listeners.TellerListener;
+import dev.mCraft.Coinz.Listeners.VaultListener;
+import dev.mCraft.Coinz.Statistics.MetricsRunnable;
 
-public class Main extends JavaPlugin {
+public class Coinz extends JavaPlugin {
 	
-	public static Main instance;
+	public static Coinz instance;
 	
 	public String tag = "[Coinz]";
 	private String name;
@@ -56,6 +60,7 @@ public class Main extends JavaPlugin {
 	public CustomItem platinumCoin;
 
 	public CustomBlock tellerBlock;
+	public CustomBlock vaultBlock;
 	
 	//Item stack variables
 	public ItemStack CopperCoin;
@@ -77,6 +82,7 @@ public class Main extends JavaPlugin {
 	public ItemStack PlatinumCoin;
 	
 	public ItemStack TellerBlock;
+	public ItemStack VaultBlock;
 
 	//Recipe variables
 	private SpoutShapedRecipe CtoB;
@@ -97,6 +103,7 @@ public class Main extends JavaPlugin {
 	private SpoutShapedRecipe MakePC;
 
 	public SpoutShapedRecipe tellerRec;
+	public SpoutShapedRecipe vaultRec;
 	
 	public void onEnable() {
 		//instancing the plugin so we can hook other classes
@@ -113,15 +120,11 @@ public class Main extends JavaPlugin {
 		
 		new Cache();
 		
+		registerListeners();
+		
 		createBlocks();
 		createItems();
 		cookRecipes();
-		
-		this.getServer().getPluginManager().registerEvent(Type.CUSTOM_EVENT, new TellerListener(), Priority.Normal, this);
-		this.getServer().getPluginManager().registerEvent(Type.BLOCK_PLACE, new MyBlockListener(), Priority.Normal, this);
-		this.getServer().getPluginManager().registerEvent(Type.PLAYER_INTERACT_ENTITY, new MyPlayerListener(), Priority.Normal, this);
-		this.getServer().getPluginManager().registerEvent(Type.PLAYER_INTERACT, new MyPlayerListener(), Priority.Normal, this);
-		this.getServer().getPluginManager().registerEvent(Type.CUSTOM_EVENT, new MyInventoryListener(), Priority.Normal, this);
 		
 		log.info(name + " has been enabled");
 		
@@ -133,6 +136,17 @@ public class Main extends JavaPlugin {
 		log.info(name + " has been disabled");
 	}
 	
+	public void registerListeners() {
+		new BlockListener();
+		new InventoryListener();
+		new PlayerListener();
+		new TellerListener();
+		new VaultListener();
+		
+		new KeyPadListener();
+		new TellerScreenListener();
+	}
+	
 	public void createBlocks() {
 		new Blocks();
 		
@@ -140,9 +154,12 @@ public class Main extends JavaPlugin {
 		
 		//Create blocks
 		tellerBlock = blocks.teller;
+		vaultBlock = blocks.vault;
 		
 		//Create itemstacks for blocks
 		TellerBlock = new SpoutItemStack(tellerBlock, 1);
+		VaultBlock = new SpoutItemStack(vaultBlock, 1);
+		
 		this.log.info(this.tag + " Blocks have been created");
 	}
 	
@@ -274,6 +291,10 @@ public class Main extends JavaPlugin {
 		tellerRec.setIngredient('C', MaterialData.wood);
 		tellerRec.setIngredient('D', MaterialData.redstoneTorchOn).setIngredient('E', MaterialData.redstone);
 		mm.registerSpoutRecipe(tellerRec);
+		
+		vaultRec = new SpoutShapedRecipe(VaultBlock);
+		
+		mm.registerSpoutRecipe(vaultRec);
 		
 		//Just something to add to the stacktrace :P
 		this.log.info(this.tag + " Recipes pre-cooked and ready");

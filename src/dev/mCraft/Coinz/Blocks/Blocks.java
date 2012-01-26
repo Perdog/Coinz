@@ -2,11 +2,11 @@ package dev.mCraft.Coinz.Blocks;
 
 import org.getspout.spoutapi.block.design.Texture;
 
-import dev.mCraft.Coinz.Main;
+import dev.mCraft.Coinz.Coinz;
 
 public class Blocks {
 	
-	private static Main plugin = Main.instance;
+	private static Coinz plugin = Coinz.instance;
 	public static Blocks hook;
 	
 	public static String textureUrl = "spoutcraft/cache/Coinz/PluginImages.png";

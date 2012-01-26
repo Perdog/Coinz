@@ -1,11 +1,14 @@
 name: Coinz
-main: dev.mCraft.Coinz.Main
+main: dev.mCraft.Coinz.Coinz
 version: 0.0.9
 depend: [Spout, Vault]
 permissions:
-  coinz.tellerblock:
-    description: Gives permission to craft the teller block.
+  coinz.craft.teller:
+    description: Gives permission to craft a teller.
     default: false
-  coinz.craftgoldcoin:
+  coinz.craft.vault
+    description: Gives permission to craft a vault.
+    default: true
+  coinz.craft.goldcoin:
     description: Allows the player to craft gold coins from gold nuggets.
     default: false

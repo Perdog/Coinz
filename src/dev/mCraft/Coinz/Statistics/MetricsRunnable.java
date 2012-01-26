@@ -1,11 +1,11 @@
-package dev.mCraft.Coinz.Metrics;
+package dev.mCraft.Coinz.Statistics;
 
 import java.io.IOException;
 
-import dev.mCraft.Coinz.Main;
+import dev.mCraft.Coinz.Coinz;
 
 public class MetricsRunnable implements Runnable {
-	private Main plugin = Main.instance;
+	private Coinz plugin = Coinz.instance;
 	
 	private Metrics metrics = null;
 	

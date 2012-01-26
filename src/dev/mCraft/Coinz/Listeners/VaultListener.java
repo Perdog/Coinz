@@ -1,31 +1,33 @@
-package dev.mCraft.Coinz;
+package dev.mCraft.Coinz.Listeners;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Event.Result;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.event.inventory.InventoryClickEvent;
 import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
-import org.getspout.spoutapi.event.inventory.InventoryCraftEvent;
-import org.getspout.spoutapi.event.inventory.InventoryListener;
 import org.getspout.spoutapi.event.inventory.InventoryOpenEvent;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.Blocks.Vault;
 import dev.mCraft.Coinz.GUI.VaultInv.VaultInv;
 
-public class MyInventoryListener extends InventoryListener {
+public class VaultListener implements Listener {
 	
-	private Main plugin = Main.instance;
+	private Coinz plugin = Coinz.instance;
 	private Vault vault = Vault.hook;
 	private VaultInv vaultInv;
 	
 	private SpoutPlayer player;
-	private short recipe;
 
 	private Inventory inv;
 	private Location loc;
@@ -36,9 +38,13 @@ public class MyInventoryListener extends InventoryListener {
 	private ItemStack cursor;
 	private int amount;
 	private ItemStack slot;
+	
+	public VaultListener() {
+		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+	}
 
-	@Override
-	public void onInventoryOpen(final InventoryOpenEvent event) {
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void openingVaultInv(final InventoryOpenEvent event) {
 		player = (SpoutPlayer) event.getPlayer();
 		inv = event.getInventory();
 		invName = inv.getName();
@@ -47,7 +53,7 @@ public class MyInventoryListener extends InventoryListener {
 		if (invName == "Vault") {
 			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
 
-				@Override
+				@EventHandler(priority = EventPriority.NORMAL)
 				public void run() {
 					player = (SpoutPlayer) event.getPlayer();
 					player.getCurrentScreen().attachWidget(plugin, vaultInv);
@@ -56,23 +62,8 @@ public class MyInventoryListener extends InventoryListener {
 		}
 	}
 	
-	@Override
-	public void onInventoryCraft(InventoryCraftEvent event) {
-		player = (SpoutPlayer)event.getPlayer();
-		recipe = event.getResult().getDurability();
-		
-		if (!plugin.perm.playerHas(player, "coinz.tellerblock") && recipe == plugin.tellerRec.getResult().getDurability()) {
-			player.sendNotification("So sorry!", "Cant craft that", plugin.TellerBlock, 2500);
-			event.setCancelled(true);
-		}
-		if (!plugin.perm.playerHas(player, "coinz.craftgoldcoin") && recipe == plugin.MakeGC2.getResult().getDurability()) {
-			player.sendNotification("So sorry!", "Cant craft that", plugin.GoldCoin, 2500);
-			event.setCancelled(true);
-		}
-	}
-	
-	@Override
-	public void onInventoryClose(InventoryCloseEvent event) {
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void closingVaultInv(InventoryCloseEvent event) {
 		inv = event.getInventory();
 		loc = event.getLocation();
 		stack = inv.getContents();
@@ -96,8 +87,8 @@ public class MyInventoryListener extends InventoryListener {
 		}
 	}
 	
-	@Override
-	public void onInventoryClick(InventoryClickEvent event) {
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void clickingVaultInv(InventoryClickEvent event) {
 		player = (SpoutPlayer) event.getPlayer();
 		inv = event.getInventory();
 		invName = inv.getName();

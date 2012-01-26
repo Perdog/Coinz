@@ -11,11 +11,11 @@ import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.gui.WidgetAnchor;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import dev.mCraft.Coinz.Main;
+import dev.mCraft.Coinz.Coinz;
 
 public class Popup extends GenericPopup {
 	
-	public Main plugin = Main.instance;
+	public Coinz plugin = Coinz.instance;
 	private ConfigurationSection locale;
 	
 	public static Popup hook;

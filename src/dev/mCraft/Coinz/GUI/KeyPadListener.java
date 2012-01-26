@@ -1,21 +1,28 @@
 package dev.mCraft.Coinz.GUI;
 
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
-import org.getspout.spoutapi.event.screen.ScreenListener;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericTextField;
 
-import dev.mCraft.Coinz.Main;
+import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.VaultInv.KeyPad;
 
-public class KeyPadListener extends ScreenListener {
-	private Main plugin = Main.instance;
+public class KeyPadListener implements Listener {
+	private Coinz plugin = Coinz.instance;
 	private KeyPad hook = KeyPad.hook;
 	
 	private Button button;
 	private GenericTextField pass;
+	
+	public KeyPadListener() {
+		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+	}
 
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onButtonClick(ButtonClickEvent event) {
 		button = event.getButton();
 		pass = hook.pass;

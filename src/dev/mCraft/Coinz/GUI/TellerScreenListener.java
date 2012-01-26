@@ -1,9 +1,12 @@
 package dev.mCraft.Coinz.GUI;
 
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
-import org.getspout.spoutapi.event.screen.ScreenListener;
 import org.getspout.spoutapi.event.screen.TextFieldChangeEvent;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericLabel;
@@ -11,12 +14,12 @@ import org.getspout.spoutapi.gui.GenericTextField;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import dev.mCraft.Coinz.Main;
+import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.TellerMenu.Popup;
 
-public class TellerListener extends ScreenListener {
+public class TellerScreenListener implements Listener {
 	private Popup popup;
-	private Main plugin;
+	private Coinz plugin;
 	
 	private Button button;
 	private SpoutPlayer player;
@@ -39,13 +42,17 @@ public class TellerListener extends ScreenListener {
 	private SpoutItemStack gold;
 	private SpoutItemStack plat;
 	
-	@Override
+	public TellerScreenListener() {
+		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onButtonClick(ButtonClickEvent event) {
 		button = event.getButton();
 		player = event.getPlayer();
 		inv = player.getInventory();
 		popup = Popup.hook;
-		plugin = Main.instance;
+		plugin = Coinz.instance;
 		
 		enter = popup.enter;
 		balance = popup.amount;
@@ -66,7 +73,7 @@ public class TellerListener extends ScreenListener {
 		}
 	}
 	
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onTextFieldChange(TextFieldChangeEvent event) {
 		event.getTextField().setFocus(true);
 		popup = Popup.hook;
