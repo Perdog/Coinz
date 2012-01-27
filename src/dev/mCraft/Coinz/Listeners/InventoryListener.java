@@ -25,7 +25,7 @@ public class InventoryListener implements Listener {
 		player = (SpoutPlayer)event.getPlayer();
 		recipe = event.getResult().getDurability();
 		
-		if (!plugin.perm.playerHas(player, "coinz..craft.teller") && recipe == plugin.tellerRec.getResult().getDurability()) {
+		if (!plugin.perm.playerHas(player, "coinz.craft.teller") && recipe == plugin.tellerRec.getResult().getDurability()) {
 			player.sendNotification("So sorry!", "Cant craft that", plugin.TellerBlock, 2500);
 			event.setCancelled(true);
 		}
