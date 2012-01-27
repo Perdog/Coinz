@@ -1,14 +1,22 @@
-name: Coinz
 main: dev.mCraft.Coinz.Coinz
+name: Coinz
+description: A spout plugin that adds a physical currency to the game.
 version: 0.0.9
 depend: [Spout, Vault]
 permissions:
-  coinz.craft.teller:
-    description: Gives permission to craft a teller.
+  coinz.*:
+    description: Gives player all permissions.
     default: false
-  coinz.craft.vault
-    description: Gives permission to craft a vault.
-    default: true
+    children:
+      coinz.craft.teller: true
+      coinz.craft.vault: true
+      coinz.craft.goldcoin: true
+  coinz.craft.teller:
+    description: Allows the player to craft a teller.
+    default: false
+  coinz.craft.vault:
+    description: Allows the player to craft a vault.
+    default: false
   coinz.craft.goldcoin:
-    description: Allows the player to craft gold coins from gold nuggets.
+    description: Allows the player to craft a goldcoin from nuggets.
     default: false
