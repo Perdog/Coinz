@@ -19,7 +19,7 @@ import dev.mCraft.Coinz.GUI.TellerMenu.Popup;
 
 public class TellerScreenListener implements Listener {
 	private Popup popup;
-	private Coinz plugin;
+	private Coinz plugin = Coinz.instance;
 	
 	private Button button;
 	private SpoutPlayer player;
