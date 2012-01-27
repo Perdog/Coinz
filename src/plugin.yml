@@ -16,7 +16,7 @@ permissions:
     default: false
   coinz.craft.vault:
     description: Allows the player to craft a vault.
-    default: false
+    default: true
   coinz.craft.goldcoin:
     description: Allows the player to craft a goldcoin from nuggets.
     default: false
