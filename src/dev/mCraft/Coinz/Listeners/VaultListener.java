@@ -68,7 +68,7 @@ public class VaultListener implements Listener {
 		loc = event.getLocation();
 		stack = inv.getContents();
 		
-		if (inv.getName() == "Vault") {
+		if (inv.getName() == "Vault" && vault != null) {
 			vault.vaultInv.put(loc, inv.getContents());
 			
 			List<ItemStack> temp = new ArrayList<ItemStack>();

@@ -6,7 +6,10 @@ import org.getspout.spoutapi.gui.GenericTextField;
 import org.getspout.spoutapi.gui.GenericTexture;
 import org.getspout.spoutapi.gui.RenderPriority;
 
+import dev.mCraft.Coinz.Coinz;
+
 public class KeyPad extends GenericPopup {
+	public Coinz plugin = Coinz.instance;
 	public static KeyPad hook;
 	
 	private GenericTexture background;
@@ -23,9 +26,28 @@ public class KeyPad extends GenericPopup {
 	public GenericButton b9;
 	public GenericButton pound;
 	public GenericButton star;
+	public GenericButton enter;
 	
 	public KeyPad() {
 		hook = this;
+		
+		
+		background = new GenericTexture();
+		pass = new GenericTextField();
+		b0 = new GenericButton();
+		b1 = new GenericButton();
+		b2 = new GenericButton();
+		b3 = new GenericButton();
+		b4 = new GenericButton();
+		b5 = new GenericButton();
+		b6 = new GenericButton();
+		b7 = new GenericButton();
+		b8 = new GenericButton();
+		b9 = new GenericButton();
+		pound = new GenericButton();
+		star = new GenericButton();
+		enter = new GenericButton();
+		
 		
 		background.setUrl("path");
 		background.setPriority(RenderPriority.Low);
@@ -55,6 +77,10 @@ public class KeyPad extends GenericPopup {
 		pound.setText("#");
 		
 		star.setText("*");
+		
+		enter.setText("Enter");
+		
+		this.attachWidgets(plugin, background, pass, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, pound, star, enter);
 	}
 
 }

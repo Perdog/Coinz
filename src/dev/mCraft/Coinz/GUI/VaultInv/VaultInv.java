@@ -50,7 +50,7 @@ public class VaultInv extends GenericContainer {
 
 		iw1.setHeight(h).setWidth(w);
 		iw1.setUrl("spoutcraft/cache/Coinz/CopperCoin.png");
-		iw1.setLeft(30).setTop(85);
+		iw1.setLeft(50);
 		iw1.setPriority(RenderPriority.Lowest);
 		
 		iw2.setHeight(h).setWidth(w);

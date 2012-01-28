@@ -7,13 +7,12 @@ import org.bukkit.event.Listener;
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericTextField;
-
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.VaultInv.KeyPad;
 
 public class KeyPadListener implements Listener {
 	private Coinz plugin = Coinz.instance;
-	private KeyPad hook = KeyPad.hook;
+	private KeyPad hook;
 	
 	private Button button;
 	private GenericTextField pass;
@@ -25,9 +24,11 @@ public class KeyPadListener implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onButtonClick(ButtonClickEvent event) {
 		button = event.getButton();
-		pass = hook.pass;
+		hook = KeyPad.hook;
+
+		if (button.getPlugin() == plugin && button.getScreen() == hook) {
+			pass = hook.pass;
 		
-		if (button.getPlugin() == plugin) {
 			if (button.getId() == hook.b0.getId()) {
 				pass.setText(pass.getText() + 0);
 			}

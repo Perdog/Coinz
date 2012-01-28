@@ -78,6 +78,7 @@ public class TellerScreenListener implements Listener {
 		event.getTextField().setFocus(true);
 		popup = Popup.hook;
 		player = event.getPlayer();
+		
 		if (popup.containsWidget(popup.notEnoughA)) {
 			popup.removeWidget(popup.notEnoughA);
 		}
@@ -89,12 +90,23 @@ public class TellerScreenListener implements Listener {
 		if (popup.containsWidget(popup.wrongChange)) {
 			popup.removeWidget(popup.wrongChange);
 		}
+		
+		if (popup.containsWidget(popup.invalidChar)) {
+			popup.removeWidget(popup.invalidChar);
+		}
 	}
 	
 	public void depositCoins() {
 		
 		if (enter.getPlugin() == plugin && !enter.getText().isEmpty()) {
-			add = Double.parseDouble(enter.getText());
+			try {
+				add = Double.parseDouble(enter.getText());
+			}
+			catch(Exception e) {
+				popup.attachWidget(plugin, popup.invalidChar);
+				enter.setText("");
+				return;
+			}
 			amount = add;
 			coin = 0;
 			
@@ -220,7 +232,14 @@ public class TellerScreenListener implements Listener {
 	public void withdrawCoins() {
 		
 		if (!enter.getText().isEmpty()) {
-			remove = Double.parseDouble(enter.getText());
+			try {
+				remove = Double.parseDouble(enter.getText());
+			}
+			catch (Exception e) {
+				popup.attachWidget(plugin, popup.invalidChar);
+				enter.setText("");
+				return;
+			}
 			amount = remove;
 			
 			if (plugin.econ.has(player.getName(), remove)) {

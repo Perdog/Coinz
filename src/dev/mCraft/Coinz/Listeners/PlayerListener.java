@@ -1,18 +1,13 @@
 package dev.mCraft.Coinz.Listeners;
 
-import java.io.File;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
-import org.getspout.spoutapi.player.FileManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
@@ -29,20 +24,26 @@ public class PlayerListener implements Listener {
 	private SpoutItemStack item;
 	private short dur;
 	
-	private FileManager fm = SpoutManager.getFileManager();
+	//private FileManager fm = SpoutManager.getFileManager();
 	
 	public PlayerListener() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 	}
-	
+	/*
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void whenPlayerLeaves(PlayerQuitEvent event) {
+		SpoutPlayer player = (SpoutPlayer) event.getPlayer();
 		for (String file : fm.getCache(plugin)) {
+			try {
 			File image = new File(file);
 			image.delete();
+			}
+			catch (Exception e) {
+				plugin.log.warning("Could not remove " + file + " from player")
+			}
 		}
 	}
-	
+	*/
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void passCoins(PlayerInteractEntityEvent event) {
 		payer = (SpoutPlayer)event.getPlayer();

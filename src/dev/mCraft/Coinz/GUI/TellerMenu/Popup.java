@@ -27,9 +27,11 @@ public class Popup extends GenericPopup {
 	public GenericButton deposit;
 	public GenericButton withdraw;
 	public GenericLabel amount;
+	
 	public GenericLabel notEnoughA;
 	public GenericLabel notEnoughC;
 	public GenericLabel wrongChange;
+	public GenericLabel invalidChar;
 
 	private GenericTexture copper;
 	private GenericTexture bronze;
@@ -57,9 +59,11 @@ public class Popup extends GenericPopup {
 		deposit = new GenericButton();
 		withdraw = new GenericButton();
 		amount = new GenericLabel();
+		
 		notEnoughA = new GenericLabel();
 		notEnoughC = new GenericLabel();
 		wrongChange = new GenericLabel();
+		invalidChar = new GenericLabel();
 		
 		Integer coinsize = 25;
 		Integer coindist = 30;
@@ -121,7 +125,6 @@ public class Popup extends GenericPopup {
 		enter.setHeight(9).setWidth(45);
 		enter.setX(200).setY(131);
 		enter.setPlaceholder(locale.getString("PlaceHolder"));
-		enter.setMaximumCharacters(4);
 		enter.setPriority(RenderPriority.Normal);
 		
 		deposit.setX(enter.getX() - 33).setY(enter.getY()-4);
@@ -139,17 +142,22 @@ public class Popup extends GenericPopup {
 		
 		notEnoughA.setX(110).setY(150);
 		notEnoughA.setHeight(5).setWidth(30);
-		notEnoughA.setText(locale.getString("Errors.NotEnoughA")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		notEnoughA.setText(locale.getString("Errors.Not enough money")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
 		notEnoughA.setPriority(RenderPriority.Normal);
 		
 		notEnoughC.setX(110).setY(150);
 		notEnoughC.setHeight(5).setWidth(30);
-		notEnoughC.setText(locale.getString("Errors.NotEnoughC")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		notEnoughC.setText(locale.getString("Errors.Not enough coins")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
 		notEnoughC.setPriority(RenderPriority.Normal);
 		
 		wrongChange.setX(110).setY(150);
 		wrongChange.setHeight(5).setWidth(20);
-		wrongChange.setText(locale.getString("Errors.WrongChange")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		wrongChange.setText(locale.getString("Errors.Wrong change")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
 		wrongChange.setPriority(RenderPriority.Normal);
+		
+		invalidChar.setX(110).setY(150);
+		invalidChar.setHeight(5).setWidth(20);
+		invalidChar.setText(locale.getString("Errors.Invalid character")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		invalidChar.setPriority(RenderPriority.Normal);
 	}
 }

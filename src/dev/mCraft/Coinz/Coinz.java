@@ -41,8 +41,8 @@ public class Coinz extends JavaPlugin {
 	
 	private MaterialManager mm;
 	
-	Blocks blocks;
-	Items items;
+	private Blocks blocks;
+	private Items items;
 	
 	//Custom item variables
 	public CustomItem copperCoin;
@@ -293,7 +293,8 @@ public class Coinz extends JavaPlugin {
 		mm.registerSpoutRecipe(tellerRec);
 		
 		vaultRec = new SpoutShapedRecipe(VaultBlock);
-		
+		vaultRec.shape("AAA", "AAA", "AAA");
+		vaultRec.setIngredient('A', MaterialData.ironBlock);
 		mm.registerSpoutRecipe(vaultRec);
 		
 		//Just something to add to the stacktrace :P

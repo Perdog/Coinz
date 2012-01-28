@@ -13,6 +13,7 @@ Language:
     GoldCoin: 'Gold coin value: $100'
     PlatCoin: 'Platinum coin value: $1,000'
   Errors:
-    NotEnoughA: Your account does not contain enough money
-    NotEnoughC: Your inventory does not contain enough coins
-    WrongChange: You do not have the proper change for this transaction
+    Not enough money: Your account does not contain enough money
+    Not enough coins: Your inventory does not contain enough coins
+    Wrong change: You do not have the proper change for this transaction
+    Invalid character: This field only accepts numbers
