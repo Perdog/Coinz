@@ -32,6 +32,7 @@ public class Popup extends GenericPopup {
 	public GenericLabel notEnoughC;
 	public GenericLabel wrongChange;
 	public GenericLabel invalidChar;
+	public GenericLabel invalidAmount;
 
 	private GenericTexture copper;
 	private GenericTexture bronze;
@@ -64,6 +65,7 @@ public class Popup extends GenericPopup {
 		notEnoughC = new GenericLabel();
 		wrongChange = new GenericLabel();
 		invalidChar = new GenericLabel();
+		invalidAmount = new GenericLabel();
 		
 		Integer coinsize = 25;
 		Integer coindist = 30;
@@ -159,5 +161,10 @@ public class Popup extends GenericPopup {
 		invalidChar.setHeight(5).setWidth(20);
 		invalidChar.setText(locale.getString("Errors.Invalid character")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
 		invalidChar.setPriority(RenderPriority.Normal);
+		
+		invalidAmount.setX(110).setY(150);
+		invalidAmount.setHeight(5).setWidth(20);
+		invalidAmount.setText(locale.getString("Errors.Invalid amount")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		invalidAmount.setPriority(RenderPriority.Normal);
 	}
 }

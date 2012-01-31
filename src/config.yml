@@ -17,3 +17,4 @@ Language:
     Not enough coins: Your inventory does not contain enough coins
     Wrong change: You do not have the proper change for this transaction
     Invalid character: This field only accepts numbers
+    Invalid amount: Text field contains an invalid amount

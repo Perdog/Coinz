@@ -94,6 +94,10 @@ public class TellerScreenListener implements Listener {
 		if (popup.containsWidget(popup.invalidChar)) {
 			popup.removeWidget(popup.invalidChar);
 		}
+		
+		if (popup.containsWidget(popup.invalidAmount)) {
+			popup.removeWidget(popup.invalidAmount);
+		}
 	}
 	
 	public void depositCoins() {
@@ -244,6 +248,8 @@ public class TellerScreenListener implements Listener {
 			
 			if (plugin.econ.has(player.getName(), remove)) {
 				
+				oldAmount = amount;
+				
 				while (amount >= 1000) {
 					inv.addItem(plugin.PlatinumCoin);
 					amount = amount - 1000;
@@ -269,10 +275,83 @@ public class TellerScreenListener implements Listener {
 					amount = amount - 0.1;
 				}
 				
-				plugin.econ.withdrawPlayer(player.getName(), remove);
-				player.sendMessage(enter.getText() + " " + "has been taken from your account");
-				enter.setText("");
-				balance.setText(plugin.econ.format(plugin.econ.getBalance(player.getName())));
+				if (amount > 0) {
+					oldAmount = oldAmount - amount;
+					
+					popup.attachWidget(plugin, popup.invalidAmount);
+					enter.setText("");
+					
+					for (ItemStack item : inv.getContents()) {
+						if (item != null) {
+							stack = new SpoutItemStack(item);
+							dur = stack.getDurability();
+							
+							if (stack.isCustomItem()) {
+								if (dur == plugin.CopperCoin.getDurability()) {
+									copp = stack;
+								}
+								
+								if (dur == plugin.BronzeCoin.getDurability()) {
+									bron = stack;
+								}
+								
+								if (dur == plugin.SilverCoin.getDurability()) {
+									silv = stack;
+								}
+								
+								if (dur == plugin.GoldCoin.getDurability()) {
+									gold = stack;
+								}
+								
+								if (dur == plugin.PlatinumCoin.getDurability()) {
+									plat = stack;
+								}
+							}
+						}
+					}
+					
+					while (oldAmount >= 1000) {
+						if (plat != null && plat.getAmount() >= 1) {
+							plat.setAmount(plat.getAmount() - 1);
+							oldAmount = oldAmount - 1000;
+						}
+					}
+					
+					while (oldAmount >= 100) {
+						if (gold != null && gold.getAmount() >= 1) {
+							gold.setAmount(gold.getAmount() - 1);
+							oldAmount = oldAmount - 100;
+						}
+					}
+					
+					while (oldAmount >= 10) {
+						if (silv != null && silv.getAmount() >= 1) {
+							silv.setAmount(silv.getAmount() - 1);
+							oldAmount = oldAmount - 10;
+						}
+					}
+					
+					while (oldAmount >= 1) {
+						if (bron != null && bron.getAmount() >= 1) {
+							bron.setAmount(bron.getAmount() - 1);
+							oldAmount = oldAmount - 1;
+						}
+					}
+					
+					while (oldAmount >= 0.1) {
+						if (copp != null && copp.getAmount() >= 1) {
+							copp.setAmount(copp.getAmount() - 1);
+							oldAmount = oldAmount - 0.1;
+						}
+					}
+				}
+				
+				else {
+					plugin.econ.withdrawPlayer(player.getName(), remove);
+					player.sendMessage(enter.getText() + " " + "has been taken from your account");
+					enter.setText("");
+					balance.setText(plugin.econ.format(plugin.econ.getBalance(player.getName())));
+				}
 			}
 			
 			else {
