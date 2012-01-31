@@ -3,6 +3,11 @@ name: Coinz
 description: A spout plugin that adds a physical currency to the game.
 version: 0.0.9
 depend: [Spout, Vault]
+commands:
+  test:
+    description: Testing
+    usage: |
+      /<command>
 permissions:
   coinz.*:
     description: Gives player all permissions.

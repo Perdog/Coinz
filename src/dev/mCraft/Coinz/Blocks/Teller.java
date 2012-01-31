@@ -8,14 +8,14 @@ import org.getspout.spoutapi.material.block.GenericCuboidCustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
-import dev.mCraft.Coinz.GUI.TellerMenu.Popup;
+import dev.mCraft.Coinz.GUI.TellerMenu.TellerPopup;
 
 public class Teller extends GenericCuboidCustomBlock {
 	
 	private static Coinz plugin = Coinz.instance;
 	
 	public static int[] textID = {0, 1, 1, 1, 1, 2};
-	private Popup popup;
+	private TellerPopup tellerPopup;
 
 	private ItemStack item;
 	private SpoutItemStack sitem;
@@ -28,8 +28,8 @@ public class Teller extends GenericCuboidCustomBlock {
 	
 	@Override
 	public boolean onBlockInteract(World world, int x, int y, int z, SpoutPlayer player) {
-		popup = new Popup(player);
-		return player.getMainScreen().attachPopupScreen(popup);
+		tellerPopup = new TellerPopup(player);
+		return player.getMainScreen().attachPopupScreen(tellerPopup);
 	}
 	
 	@Override

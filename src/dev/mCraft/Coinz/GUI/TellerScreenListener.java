@@ -15,10 +15,10 @@ import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
-import dev.mCraft.Coinz.GUI.TellerMenu.Popup;
+import dev.mCraft.Coinz.GUI.TellerMenu.TellerPopup;
 
 public class TellerScreenListener implements Listener {
-	private Popup popup;
+	private TellerPopup tellerPopup;
 	private Coinz plugin = Coinz.instance;
 	
 	private Button button;
@@ -48,26 +48,31 @@ public class TellerScreenListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onButtonClick(ButtonClickEvent event) {
+		tellerPopup = TellerPopup.hook;
+		
+		if (tellerPopup == null) {
+			return;
+		}
+		
 		button = event.getButton();
 		player = event.getPlayer();
 		inv = player.getInventory();
-		popup = Popup.hook;
 		plugin = Coinz.instance;
 		
-		enter = popup.enter;
-		balance = popup.amount;
+		enter = tellerPopup.enter;
+		balance = tellerPopup.amount;
 		
 		if (button.getText() != null && button.getPlugin() == plugin) {
 			
-			if (button.getId() == popup.escape.getId()) {
+			if (button.getId() == tellerPopup.escape.getId()) {
 				player.closeActiveWindow();
 			}
 			
-			if (button.getId() == popup.deposit.getId()) {
+			if (button.getId() == tellerPopup.deposit.getId()) {
 				depositCoins();
 			}
 			
-			if (button.getId() == popup.withdraw.getId()) {
+			if (button.getId() == tellerPopup.withdraw.getId()) {
 				withdrawCoins();
 			}
 		}
@@ -76,27 +81,27 @@ public class TellerScreenListener implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onTextFieldChange(TextFieldChangeEvent event) {
 		event.getTextField().setFocus(true);
-		popup = Popup.hook;
+		tellerPopup = TellerPopup.hook;
 		player = event.getPlayer();
 		
-		if (popup.containsWidget(popup.notEnoughA)) {
-			popup.removeWidget(popup.notEnoughA);
+		if (tellerPopup.containsWidget(tellerPopup.notEnoughA)) {
+			tellerPopup.removeWidget(tellerPopup.notEnoughA);
 		}
 		
-		if (popup.containsWidget(popup.notEnoughC)) {
-			popup.removeWidget(popup.notEnoughC);
+		if (tellerPopup.containsWidget(tellerPopup.notEnoughC)) {
+			tellerPopup.removeWidget(tellerPopup.notEnoughC);
 		}
 		
-		if (popup.containsWidget(popup.wrongChange)) {
-			popup.removeWidget(popup.wrongChange);
+		if (tellerPopup.containsWidget(tellerPopup.wrongChange)) {
+			tellerPopup.removeWidget(tellerPopup.wrongChange);
 		}
 		
-		if (popup.containsWidget(popup.invalidChar)) {
-			popup.removeWidget(popup.invalidChar);
+		if (tellerPopup.containsWidget(tellerPopup.invalidChar)) {
+			tellerPopup.removeWidget(tellerPopup.invalidChar);
 		}
 		
-		if (popup.containsWidget(popup.invalidAmount)) {
-			popup.removeWidget(popup.invalidAmount);
+		if (tellerPopup.containsWidget(tellerPopup.invalidAmount)) {
+			tellerPopup.removeWidget(tellerPopup.invalidAmount);
 		}
 	}
 	
@@ -107,7 +112,7 @@ public class TellerScreenListener implements Listener {
 				add = Double.parseDouble(enter.getText());
 			}
 			catch(Exception e) {
-				popup.attachWidget(plugin, popup.invalidChar);
+				tellerPopup.attachWidget(plugin, tellerPopup.invalidChar);
 				enter.setText("");
 				return;
 			}
@@ -192,7 +197,7 @@ public class TellerScreenListener implements Listener {
 				
 				if (amount > 0) {
 					oldAmount = oldAmount - amount;
-					popup.attachWidget(plugin, popup.wrongChange);
+					tellerPopup.attachWidget(plugin, tellerPopup.wrongChange);
 
 					while (oldAmount >= 1000) {
 						inv.addItem(plugin.PlatinumCoin);
@@ -228,7 +233,7 @@ public class TellerScreenListener implements Listener {
 			}
 			
 			else {
-				popup.attachWidget(plugin, popup.notEnoughC);
+				tellerPopup.attachWidget(plugin, tellerPopup.notEnoughC);
 			}
 		}
 	}
@@ -240,7 +245,7 @@ public class TellerScreenListener implements Listener {
 				remove = Double.parseDouble(enter.getText());
 			}
 			catch (Exception e) {
-				popup.attachWidget(plugin, popup.invalidChar);
+				tellerPopup.attachWidget(plugin, tellerPopup.invalidChar);
 				enter.setText("");
 				return;
 			}
@@ -278,7 +283,7 @@ public class TellerScreenListener implements Listener {
 				if (amount > 0) {
 					oldAmount = oldAmount - amount;
 					
-					popup.attachWidget(plugin, popup.invalidAmount);
+					tellerPopup.attachWidget(plugin, tellerPopup.invalidAmount);
 					enter.setText("");
 					
 					for (ItemStack item : inv.getContents()) {
@@ -355,7 +360,7 @@ public class TellerScreenListener implements Listener {
 			}
 			
 			else {
-				popup.attachWidget(plugin, popup.notEnoughA);
+				tellerPopup.attachWidget(plugin, tellerPopup.notEnoughA);
 			}
 		}
 	}

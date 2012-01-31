@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -16,11 +18,13 @@ import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Blocks.Blocks;
 import dev.mCraft.Coinz.Coins.Items;
 import dev.mCraft.Coinz.GUI.KeyPadListener;
 import dev.mCraft.Coinz.GUI.TellerScreenListener;
+import dev.mCraft.Coinz.GUI.VaultInv.KeypadPopup;
 import dev.mCraft.Coinz.Listeners.BlockListener;
 import dev.mCraft.Coinz.Listeners.InventoryListener;
 import dev.mCraft.Coinz.Listeners.PlayerListener;
@@ -134,6 +138,22 @@ public class Coinz extends JavaPlugin {
 	
 	public void onDisable() {
 		log.info(name + " has been disabled");
+	}
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] split) {
+		SpoutPlayer player = null;
+		KeypadPopup popup = new KeypadPopup();
+		if (sender instanceof SpoutPlayer) {
+			player = (SpoutPlayer)sender;
+		}
+		
+		if (cmd.getName().equals("test")) {
+			player.getMainScreen().attachPopupScreen(popup);
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void registerListeners() {

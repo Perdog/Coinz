@@ -7,12 +7,14 @@ import org.bukkit.event.Listener;
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericTextField;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import dev.mCraft.Coinz.Coinz;
-import dev.mCraft.Coinz.GUI.VaultInv.KeyPad;
+import dev.mCraft.Coinz.GUI.VaultInv.KeypadPopup;
 
 public class KeyPadListener implements Listener {
 	private Coinz plugin = Coinz.instance;
-	private KeyPad hook;
+	private KeypadPopup hook;
 	
 	private Button button;
 	private GenericTextField pass;
@@ -23,10 +25,16 @@ public class KeyPadListener implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onButtonClick(ButtonClickEvent event) {
+		hook = KeypadPopup.hook;
+		
+		if (hook == null) {
+			return;
+		}
+		
 		button = event.getButton();
-		hook = KeyPad.hook;
+		SpoutPlayer player = (SpoutPlayer)event.getPlayer();
 
-		if (button.getPlugin() == plugin && button.getScreen() == hook) {
+		if (button.getText() != null && button.getPlugin() == plugin) {
 			pass = hook.pass;
 		
 			if (button.getId() == hook.b0.getId()) {
@@ -64,6 +72,27 @@ public class KeyPadListener implements Listener {
 			}
 			if (button.getId() == hook.star.getId()) {
 				pass.setText(pass.getText() + "*");
+			}
+			if (button.getId() == hook.corr.getId()) {
+				if (pass.getText() != null) {
+					String text = pass.getText();
+					int length = text.length();
+					if (length >= 2) {
+						String newtext = text.substring(0, length-1);
+						pass.setText(newtext);
+					}
+					if (length == 1) {
+						pass.setText("");
+					}
+				}
+			}
+			if (button.getId() == hook.enter.getId()) {
+				//Check the password for the location if it exists, and if it matches
+				//Else create the password
+				player.closeActiveWindow();
+			}
+			if (button.getId() == hook.cancel.getId()) {
+				player.closeActiveWindow();
 			}
 		}
 	}
