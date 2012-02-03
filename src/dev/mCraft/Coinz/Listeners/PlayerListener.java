@@ -60,33 +60,33 @@ public class PlayerListener implements Listener {
 					reciever.sendMessage("You can't get paid because your inventory is full!");
 				}
 				else {
-					if (dur == plugin.CopperCoin.getDurability()) {
-						payer.getInventory().removeItem(plugin.CopperCoin);
-						reciever.getInventory().addItem(plugin.CopperCoin);
+					if (dur == Coinz.CopperCoin.getDurability()) {
+						payer.getInventory().removeItem(Coinz.CopperCoin);
+						reciever.getInventory().addItem(Coinz.CopperCoin);
 						payer.sendMessage("Payment recieved");
 						reciever.sendMessage("Payment recieved");
 					}
-					if (dur == plugin.BronzeCoin.getDurability()) {
-						payer.getInventory().removeItem(plugin.BronzeCoin);
-						reciever.getInventory().addItem(plugin.BronzeCoin);
+					if (dur == Coinz.BronzeCoin.getDurability()) {
+						payer.getInventory().removeItem(Coinz.BronzeCoin);
+						reciever.getInventory().addItem(Coinz.BronzeCoin);
 						payer.sendMessage("Payment recieved");
 						reciever.sendMessage("Payment recieved");
 					}
-					if (dur == plugin.SilverCoin.getDurability()) {
-						payer.getInventory().removeItem(plugin.SilverCoin);
-						reciever.getInventory().addItem(plugin.SilverCoin);
+					if (dur == Coinz.SilverCoin.getDurability()) {
+						payer.getInventory().removeItem(Coinz.SilverCoin);
+						reciever.getInventory().addItem(Coinz.SilverCoin);
 						payer.sendMessage("Payment recieved");
 						reciever.sendMessage("Payment recieved");
 					}
-					if (dur == plugin.GoldCoin.getDurability()) {
-						payer.getInventory().removeItem(plugin.GoldCoin);
-						reciever.getInventory().addItem(plugin.GoldCoin);
+					if (dur == Coinz.GoldCoin.getDurability()) {
+						payer.getInventory().removeItem(Coinz.GoldCoin);
+						reciever.getInventory().addItem(Coinz.GoldCoin);
 						payer.sendMessage("Payment recieved");
 						reciever.sendMessage("Payment recieved");
 					}
-					if (dur == plugin.PlatinumCoin.getDurability()) {
-						payer.getInventory().removeItem(plugin.PlatinumCoin);
-						reciever.getInventory().addItem(plugin.PlatinumCoin);
+					if (dur == Coinz.PlatinumCoin.getDurability()) {
+						payer.getInventory().removeItem(Coinz.PlatinumCoin);
+						reciever.getInventory().addItem(Coinz.PlatinumCoin);
 						payer.sendMessage("Payment recieved");
 						reciever.sendMessage("Payment recieved");
 					}

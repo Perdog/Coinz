@@ -125,27 +125,27 @@ public class TellerScreenListener implements Listener {
 					dur = stack.getDurability();
 					
 					if (stack.isCustomItem()) {
-						if (dur == plugin.CopperCoin.getDurability()) {
+						if (dur == Coinz.CopperCoin.getDurability()) {
 							coin = coin + (stack.getAmount() * 0.1);
 							copp = stack;
 						}
 						
-						if (dur == plugin.BronzeCoin.getDurability()) {
+						if (dur == Coinz.BronzeCoin.getDurability()) {
 							coin = coin + (stack.getAmount() * 1);
 							bron = stack;
 						}
 						
-						if (dur == plugin.SilverCoin.getDurability()) {
+						if (dur == Coinz.SilverCoin.getDurability()) {
 							coin = coin + (stack.getAmount() * 10);
 							silv = stack;
 						}
 						
-						if (dur == plugin.GoldCoin.getDurability()) {
+						if (dur == Coinz.GoldCoin.getDurability()) {
 							coin = coin + (stack.getAmount() * 100);
 							gold = stack;
 						}
 						
-						if (dur == plugin.PlatinumCoin.getDurability()) {
+						if (dur == Coinz.PlatinumCoin.getDurability()) {
 							coin = coin + (stack.getAmount() * 1000);
 							plat = stack;
 						}
@@ -155,41 +155,41 @@ public class TellerScreenListener implements Listener {
 
 			if (coin >= amount) {
 				oldAmount = amount;
-				if (plat != null && plat.getDurability() == plugin.PlatinumCoin.getDurability()) {
+				if (plat != null && plat.getDurability() == Coinz.PlatinumCoin.getDurability()) {
 					while (plat.getAmount() >=1 && amount >= 1000) {
-						inv.removeItem(plugin.PlatinumCoin);
+						inv.removeItem(Coinz.PlatinumCoin);
 						amount = amount - 1000;
 						plat.setAmount(plat.getAmount() - 1);
 					}
 				}
 				
-				if (gold != null && gold.getDurability() == plugin.GoldCoin.getDurability()) {
+				if (gold != null && gold.getDurability() == Coinz.GoldCoin.getDurability()) {
 					while (gold.getAmount() >= 1 && amount >= 100) {
-						inv.removeItem(plugin.GoldCoin);
+						inv.removeItem(Coinz.GoldCoin);
 						amount = amount - 100;
 						gold.setAmount(gold.getAmount() - 1);
 					}
 				}
 				
-				if (silv != null && silv.getDurability() == plugin.SilverCoin.getDurability()) {
+				if (silv != null && silv.getDurability() == Coinz.SilverCoin.getDurability()) {
 					while (silv.getAmount() >= 1 && amount >= 10) {
-						inv.removeItem(plugin.SilverCoin);
+						inv.removeItem(Coinz.SilverCoin);
 						amount = amount - 10;
 						silv.setAmount(silv.getAmount() - 1);
 					}
 				}
 				
-				if (bron != null && bron.getDurability() == plugin.BronzeCoin.getDurability()) {
+				if (bron != null && bron.getDurability() == Coinz.BronzeCoin.getDurability()) {
 					while (bron.getAmount() >= 1 && amount >= 1) {
-						inv.removeItem(plugin.BronzeCoin);
+						inv.removeItem(Coinz.BronzeCoin);
 						amount = amount - 1;
 						bron.setAmount(bron.getAmount() - 1);
 					}
 				}
 				
-				if (copp != null && copp.getDurability() == plugin.CopperCoin.getDurability()) {
+				if (copp != null && copp.getDurability() == Coinz.CopperCoin.getDurability()) {
 					while (copp.getAmount() >= 1 && amount >= 0.1) {
-						inv.removeItem(plugin.CopperCoin);
+						inv.removeItem(Coinz.CopperCoin);
 						amount = amount - 0.1;
 						copp.setAmount(copp.getAmount() - 1);
 					}
@@ -200,27 +200,27 @@ public class TellerScreenListener implements Listener {
 					tellerPopup.attachWidget(plugin, tellerPopup.wrongChange);
 
 					while (oldAmount >= 1000) {
-						inv.addItem(plugin.PlatinumCoin);
+						inv.addItem(Coinz.PlatinumCoin);
 						oldAmount = oldAmount - 1000;
 					}
 					
 					while (oldAmount >= 100) {
-						inv.addItem(plugin.GoldCoin);
+						inv.addItem(Coinz.GoldCoin);
 						oldAmount = oldAmount - 100;
 					}
 					
 					while (oldAmount >= 10) {
-						inv.addItem(plugin.SilverCoin);
+						inv.addItem(Coinz.SilverCoin);
 						oldAmount = oldAmount - 10;
 					}
 					
 					while (oldAmount >= 1) {
-						inv.addItem(plugin.BronzeCoin);
+						inv.addItem(Coinz.BronzeCoin);
 						oldAmount = oldAmount - 1;
 					}
 					
 					while (oldAmount >= 0.1) {
-						inv.addItem(plugin.CopperCoin);
+						inv.addItem(Coinz.CopperCoin);
 						oldAmount = oldAmount - 0.1;
 					}
 				}
@@ -256,27 +256,27 @@ public class TellerScreenListener implements Listener {
 				oldAmount = amount;
 				
 				while (amount >= 1000) {
-					inv.addItem(plugin.PlatinumCoin);
+					inv.addItem(Coinz.PlatinumCoin);
 					amount = amount - 1000;
 				}
 				
 				while (amount >= 100) {
-					inv.addItem(plugin.GoldCoin);
+					inv.addItem(Coinz.GoldCoin);
 					amount = amount - 100;
 				}
 				
 				while (amount >= 10) {
-					inv.addItem(plugin.SilverCoin);
+					inv.addItem(Coinz.SilverCoin);
 					amount = amount - 10;
 				}
 				
 				while (amount >= 1) {
-					inv.addItem(plugin.BronzeCoin);
+					inv.addItem(Coinz.BronzeCoin);
 					amount = amount - 1;
 				}
 				
 				while (amount >= 0.1) {
-					inv.addItem(plugin.CopperCoin);
+					inv.addItem(Coinz.CopperCoin);
 					amount = amount - 0.1;
 				}
 				
@@ -292,23 +292,23 @@ public class TellerScreenListener implements Listener {
 							dur = stack.getDurability();
 							
 							if (stack.isCustomItem()) {
-								if (dur == plugin.CopperCoin.getDurability()) {
+								if (dur == Coinz.CopperCoin.getDurability()) {
 									copp = stack;
 								}
 								
-								if (dur == plugin.BronzeCoin.getDurability()) {
+								if (dur == Coinz.BronzeCoin.getDurability()) {
 									bron = stack;
 								}
 								
-								if (dur == plugin.SilverCoin.getDurability()) {
+								if (dur == Coinz.SilverCoin.getDurability()) {
 									silv = stack;
 								}
 								
-								if (dur == plugin.GoldCoin.getDurability()) {
+								if (dur == Coinz.GoldCoin.getDurability()) {
 									gold = stack;
 								}
 								
-								if (dur == plugin.PlatinumCoin.getDurability()) {
+								if (dur == Coinz.PlatinumCoin.getDurability()) {
 									plat = stack;
 								}
 							}

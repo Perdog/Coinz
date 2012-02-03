@@ -68,23 +68,23 @@ public class Coinz extends JavaPlugin {
 	public CustomBlock vaultBlock;
 	
 	//Item stack variables
-	public ItemStack CopperCoin;
+	public static ItemStack CopperCoin;
 	public ItemStack CopperCoins;
 	
-	public ItemStack HalfBronzeCoin;
-	public ItemStack BronzeCoin;
+	public static ItemStack HalfBronzeCoin;
+	public static ItemStack BronzeCoin;
 	public ItemStack BronzeCoins;
 	
-	public ItemStack HalfSilverCoin;
-	public ItemStack SilverCoin;
+	public static ItemStack HalfSilverCoin;
+	public static ItemStack SilverCoin;
 	public ItemStack SilverCoins;
 	
-	public ItemStack HalfGoldCoin;
-	public ItemStack GoldCoin;
+	public static ItemStack HalfGoldCoin;
+	public static ItemStack GoldCoin;
 	public ItemStack GoldCoins;
 	
-	public ItemStack HalfPlatinumCoin;
-	public ItemStack PlatinumCoin;
+	public static ItemStack HalfPlatinumCoin;
+	public static ItemStack PlatinumCoin;
 	
 	public ItemStack TellerBlock;
 	public ItemStack VaultBlock;

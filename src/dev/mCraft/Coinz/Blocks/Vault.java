@@ -58,7 +58,7 @@ public class Vault extends GenericCuboidCustomBlock {
 	public void onBlockPlace(World world, int x, int y, int z, LivingEntity entity) {
 		persist = PersistVault.hook;
 		Location loc = new Location(world, x, y, z);
-		InventoryBuilder builder = SpoutManager.getInventoryBuilder();
+		builder = SpoutManager.getInventoryBuilder();
 		
 		ItemStack[] stack = new ItemStack[9];
 		stack[0] = null;

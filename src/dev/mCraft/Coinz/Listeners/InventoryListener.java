@@ -34,7 +34,7 @@ public class InventoryListener implements Listener {
 			event.setCancelled(true);
 		}
 		if (!plugin.perm.playerHas(player, "coinz.craft.goldcoin") && recipe == plugin.MakeGC2.getResult().getDurability()) {
-			player.sendNotification("So sorry!", "Cant craft that", plugin.GoldCoin, 2500);
+			player.sendNotification("So sorry!", "Cant craft that", Coinz.GoldCoin, 2500);
 			event.setCancelled(true);
 		}
 	}

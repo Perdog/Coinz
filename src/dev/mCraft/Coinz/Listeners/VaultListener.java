@@ -9,8 +9,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.event.inventory.InventoryClickEvent;
 import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
-import org.getspout.spoutapi.player.SpoutPlayer;
-
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.Blocks.Vault;
 import dev.mCraft.Coinz.Serializer.PersistVault;
@@ -20,17 +18,12 @@ public class VaultListener implements Listener {
 	private Coinz plugin = Coinz.instance;
 	private Vault vault;
 	private PersistVault persist;
-	
-	private SpoutPlayer player;
-
 	private Inventory inv;
 	private Location loc;
 	
 	private String invName;
 	private int slotNum;
 	private ItemStack cursor;
-	private int amount;
-	private ItemStack slot;
 	
 	public VaultListener() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
@@ -56,44 +49,39 @@ public class VaultListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void clickingVaultInv(InventoryClickEvent event) {
-		player = (SpoutPlayer) event.getPlayer();
 		inv = event.getInventory();
 		invName = inv.getName();
 		slotNum = event.getSlot();
-		if (slotNum != -999) {
-		slot = inv.getItem(slotNum);
-		}
-		amount = slot.getAmount();
 		cursor = event.getCursor();
 		
 		if (invName == "Vault") {
-			player.sendMessage(slotNum + "");
+			
 			if (cursor != null) {
-				if (slotNum == 0 && cursor.getDurability() != plugin.CopperCoin.getDurability()) {
+				if (slotNum == 0 && cursor.getDurability() != Coinz.CopperCoin.getDurability()) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 1 && cursor.getDurability() != plugin.HalfBronzeCoin.getDurability()) {
+				else if (slotNum == 1 && cursor.getDurability() != Coinz.HalfBronzeCoin.getDurability()) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 2 && cursor.getDurability() != plugin.BronzeCoin.getDurability()) {
+				else if (slotNum == 2 && cursor.getDurability() != Coinz.BronzeCoin.getDurability()) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 3 && cursor.getDurability() != plugin.HalfSilverCoin.getDurability()) {
+				else if (slotNum == 3 && cursor.getDurability() != Coinz.HalfSilverCoin.getDurability()) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 4 && cursor.getDurability() != plugin.SilverCoin.getDurability()) {
+				else if (slotNum == 4 && cursor.getDurability() != Coinz.SilverCoin.getDurability()) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 5 && cursor.getDurability() != plugin.HalfGoldCoin.getDurability()) {
+				else if (slotNum == 5 && cursor.getDurability() != Coinz.HalfGoldCoin.getDurability()) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 6 && cursor.getDurability() != plugin.GoldCoin.getDurability()) {
+				else if (slotNum == 6 && cursor.getDurability() != Coinz.GoldCoin.getDurability()) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 7 && cursor.getDurability() != plugin.HalfPlatinumCoin.getDurability()) {
+				else if (slotNum == 7 && cursor.getDurability() != Coinz.HalfPlatinumCoin.getDurability()) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 8 && cursor.getDurability() != plugin.PlatinumCoin.getDurability()) {
+				else if (slotNum == 8 && cursor.getDurability() != Coinz.PlatinumCoin.getDurability()) {
 					event.setCancelled(true);
 				}
 			}

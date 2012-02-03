@@ -38,30 +38,30 @@ public class Teller extends GenericCuboidCustomBlock {
 		sitem = new SpoutItemStack(item);
 		dur = sitem.getDurability();
 		
-		if (dur == plugin.CopperCoin.getDurability()) {
-			player.getInventory().removeItem(plugin.CopperCoin);
+		if (dur == Coinz.CopperCoin.getDurability()) {
+			player.getInventory().removeItem(Coinz.CopperCoin);
 			plugin.econ.depositPlayer(player.getName(), 0.1);
-			player.sendNotification("0.1 dollar", "added to your account", plugin.CopperCoin, 1700);
+			player.sendNotification("0.1 dollar", "added to your account", Coinz.CopperCoin, 1700);
 		}
-		if (dur == plugin.BronzeCoin.getDurability()) {
+		if (dur == Coinz.BronzeCoin.getDurability()) {
 			player.getInventory().removeItem(new SpoutItemStack(plugin.bronzeCoin, 1));
 			plugin.econ.depositPlayer(player.getName(), 1);
-			player.sendNotification("1 dollar", "added to your account", plugin.BronzeCoin, 1700);
+			player.sendNotification("1 dollar", "added to your account", Coinz.BronzeCoin, 1700);
 		}
-		if (dur == plugin.SilverCoin.getDurability()) {
+		if (dur == Coinz.SilverCoin.getDurability()) {
 			player.getInventory().removeItem(new SpoutItemStack(plugin.silverCoin, 1));
 			plugin.econ.depositPlayer(player.getName(), 10);
-			player.sendNotification("10 dollars", "added to your account", plugin.SilverCoin, 1700);
+			player.sendNotification("10 dollars", "added to your account", Coinz.SilverCoin, 1700);
 		}
-		if (dur == plugin.GoldCoin.getDurability()) {
+		if (dur == Coinz.GoldCoin.getDurability()) {
 			player.getInventory().removeItem(new SpoutItemStack(plugin.goldCoin, 1));
 			plugin.econ.depositPlayer(player.getName(), 100);
-			player.sendNotification("100 dollars", "added to your account", plugin.GoldCoin, 1700);
+			player.sendNotification("100 dollars", "added to your account", Coinz.GoldCoin, 1700);
 		}
-		if (dur == plugin.PlatinumCoin.getDurability()) {
+		if (dur == Coinz.PlatinumCoin.getDurability()) {
 			player.getInventory().removeItem(new SpoutItemStack(plugin.platinumCoin, 1));
 			plugin.econ.depositPlayer(player.getName(), 1000);
-			player.sendNotification("1000 dollars", "added to your account", plugin.PlatinumCoin, 1700);
+			player.sendNotification("1000 dollars", "added to your account", Coinz.PlatinumCoin, 1700);
 		}
 	}
 

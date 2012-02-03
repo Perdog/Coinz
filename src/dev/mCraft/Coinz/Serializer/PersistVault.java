@@ -16,9 +16,10 @@ import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
+
+import dev.mCraft.Coinz.Coinz;
  
 public class PersistVault implements Serializable {
-
 	public static PersistVault hook;
 	
     private List<VaultStore> stacks;
@@ -54,7 +55,34 @@ public class PersistVault implements Serializable {
         in.close();
         
         for(VaultStore stack : pInv.stacks) {
-            inv.addItem(stack.convert());
+        	SpoutItemStack item = stack.convert();
+        	if (item.getDurability() == Coinz.CopperCoin.getDurability()) {
+        		inv.setItem(0, item);
+        	}
+        	if (item.getDurability() == Coinz.HalfBronzeCoin.getDurability()) {
+        		inv.setItem(1, item);
+        	}
+        	if (item.getDurability() == Coinz.BronzeCoin.getDurability()) {
+        		inv.setItem(2, item);
+        	}
+        	if (item.getDurability() == Coinz.HalfSilverCoin.getDurability()) {
+        		inv.setItem(3, item);
+        	}
+        	if (item.getDurability() == Coinz.SilverCoin.getDurability()) {
+        		inv.setItem(4, item);
+        	}
+        	if (item.getDurability() == Coinz.HalfGoldCoin.getDurability()) {
+        		inv.setItem(5, item);
+        	}
+        	if (item.getDurability() == Coinz.GoldCoin.getDurability()) {
+        		inv.setItem(6, item);
+        	}
+        	if (item.getDurability() == Coinz.HalfPlatinumCoin.getDurability()) {
+        		inv.setItem(7, item);
+        	}
+        	if (item.getDurability() == Coinz.PlatinumCoin.getDurability()) {
+        		inv.setItem(8, item);
+        	}
         }
         
         return inv;
