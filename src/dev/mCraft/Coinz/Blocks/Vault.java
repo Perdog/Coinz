@@ -3,7 +3,6 @@ package dev.mCraft.Coinz.Blocks;
 import java.util.HashMap;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -14,12 +13,13 @@ import org.getspout.spoutapi.material.block.GenericCuboidCustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
+import dev.mCraft.Coinz.Serializer.PersistVault;
 
 public class Vault extends GenericCuboidCustomBlock {
 	
 	private static Coinz plugin = Coinz.instance;
 	public static Vault hook;
-	public ConfigurationSection vaults = plugin.getConfig().getConfigurationSection("Vaults");
+	private PersistVault persist;
 	
 	public static int[] textID = {16, 17, 16, 16, 16, 16};
 	
@@ -35,38 +35,83 @@ public class Vault extends GenericCuboidCustomBlock {
 	
 	@Override
 	public boolean onBlockInteract(World world, int x, int y, int z, SpoutPlayer player) {
+		persist = PersistVault.hook;
 		builder = SpoutManager.getInventoryBuilder();
 		Location loc = new Location(world, x, y ,z);
-		ItemStack[] stack = vaultInv.get(loc);
 		
-		Inventory Vault = builder.construct(stack, "Vault");
+		Inventory Vault = builder.construct(9, "Vault");
+		Inventory test = Vault;
+		
+		try {
+			test = persist.load(loc, test);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Vault = test;
+		
 		return player.openInventoryWindow(Vault, loc);
 	}
 	
 	@Override
 	public void onBlockPlace(World world, int x, int y, int z, LivingEntity entity) {
+		persist = PersistVault.hook;
 		Location loc = new Location(world, x, y, z);
-		builder = SpoutManager.getInventoryBuilder();
+		InventoryBuilder builder = SpoutManager.getInventoryBuilder();
 		
 		ItemStack[] stack = new ItemStack[9];
-		stack[0] = plugin.CopperCoin;
-		stack[1] = plugin.HalfBronzeCoin;
-		stack[2] = plugin.BronzeCoin;
-		stack[3] = plugin.HalfSilverCoin;
-		stack[4] = plugin.SilverCoin;
-		stack[5] = plugin.HalfGoldCoin;
-		stack[6] = plugin.GoldCoin;
-		stack[7] = plugin.HalfPlatinumCoin;
-		stack[8] = plugin.PlatinumCoin;
+		stack[0] = null;
+		stack[1] = null;
+		stack[2] = null;
+		stack[3] = null;
+		stack[4] = null;
+		stack[5] = null;
+		stack[6] = null;
+		stack[7] = null;
+		stack[8] = null;
 		
-		builder.construct(stack, "Vault");
+		Inventory tempInv = builder.construct(stack, "Vault");
+		
 		vaultInv.put(loc, stack);
+		
+		try {
+			persist.save(loc, tempInv);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void onBlockDestroyed(World world, int x, int y, int z) {
+		persist = PersistVault.hook;
+		builder = SpoutManager.getInventoryBuilder();
 		Location loc = new Location(world, x, y, z);
 		
-		vaultInv.remove(loc);
+		Inventory Vault = builder.construct(9, "Vault");
+		Inventory test = Vault;
+		
+		try {
+			test = persist.load(loc, test);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Vault = test;
+		
+		for (ItemStack item : Vault.getContents()) {
+			if (item != null) {
+			    world.dropItemNaturally(loc, item);
+			}
+		}
+		
+		try {
+			persist.destory(loc);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

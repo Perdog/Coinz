@@ -30,6 +30,7 @@ import dev.mCraft.Coinz.Listeners.InventoryListener;
 import dev.mCraft.Coinz.Listeners.PlayerListener;
 import dev.mCraft.Coinz.Listeners.TellerListener;
 import dev.mCraft.Coinz.Listeners.VaultListener;
+import dev.mCraft.Coinz.Serializer.PersistVault;
 import dev.mCraft.Coinz.Statistics.MetricsRunnable;
 
 public class Coinz extends JavaPlugin {
@@ -165,6 +166,8 @@ public class Coinz extends JavaPlugin {
 		
 		new KeyPadListener();
 		new TellerScreenListener();
+		
+		new PersistVault();
 	}
 	
 	public void createBlocks() {
