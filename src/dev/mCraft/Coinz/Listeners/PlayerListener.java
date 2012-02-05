@@ -29,21 +29,7 @@ public class PlayerListener implements Listener {
 	public PlayerListener() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 	}
-	/*
-	@EventHandler(priority = EventPriority.NORMAL)
-	public void whenPlayerLeaves(PlayerQuitEvent event) {
-		SpoutPlayer player = (SpoutPlayer) event.getPlayer();
-		for (String file : fm.getCache(plugin)) {
-			try {
-			File image = new File(file);
-			image.delete();
-			}
-			catch (Exception e) {
-				plugin.log.warning("Could not remove " + file + " from player")
-			}
-		}
-	}
-	*/
+	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void passCoins(PlayerInteractEntityEvent event) {
 		payer = (SpoutPlayer)event.getPlayer();

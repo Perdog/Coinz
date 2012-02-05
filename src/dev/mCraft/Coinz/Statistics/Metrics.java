@@ -203,12 +203,14 @@ public class Metrics {
 
         // Now read the response
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        response = reader.readLine();
+        if (reader != null) {
+        	response = reader.readLine();
+        }
 
         // close resources
         writer.close();
         reader.close();
-
+        
         if (response.startsWith("ERR")){
             throw new IOException(response); //Throw the exception
         }

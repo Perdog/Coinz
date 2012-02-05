@@ -19,10 +19,14 @@ public class Blocks {
 	public Vault vault;
 	
 	public Blocks() {
-		hook = this;
+		instance();
 		
 		teller = new Teller();
 		vault = new Vault();
+	}
+
+	private void instance() {
+		hook = this;
 	}
 
 }

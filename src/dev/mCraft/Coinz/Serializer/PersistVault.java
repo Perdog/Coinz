@@ -21,10 +21,11 @@ import dev.mCraft.Coinz.Coinz;
  
 public class PersistVault implements Serializable {
 	public static PersistVault hook;
-	
-    private List<VaultStore> stacks;
-    private String direct = "plugins/Coinz/Vault_Locations";
+
     private static final long serialVersionUID = 1L;
+
+    private String direct = "plugins/Coinz/Vault_Locations";
+    private List<VaultStore> stacks;
     
     public PersistVault() {
     	hook = this;
@@ -45,16 +46,18 @@ public class PersistVault implements Serializable {
     	
     	ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file, false));
     	out.writeObject(this);
+    	out.flush();
     	out.close();
     }
  
     public Inventory load(Location loc, Inventory inv) throws IOException, ClassNotFoundException {
     	File file = getLocationFile(loc);
+    	
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-        PersistVault pInv = (PersistVault) in.readObject();
+        PersistVault loaded = (PersistVault) in.readObject();
         in.close();
         
-        for(VaultStore stack : pInv.stacks) {
+        for(VaultStore stack : loaded.stacks) {
         	SpoutItemStack item = stack.convert();
         	if (item.getDurability() == Coinz.CopperCoin.getDurability()) {
         		inv.setItem(0, item);
@@ -121,7 +124,8 @@ public class PersistVault implements Serializable {
     }
     
     public void destory(Location loc) throws IOException, ClassNotFoundException {
-    	File file = getLocationFile(loc);
+    	String name = loc.toString();
+    	File file = new File(direct, name);
     	file.delete();
     }
  
@@ -157,7 +161,7 @@ public class PersistVault implements Serializable {
         private static final long serialVersionUID = 1L;
         private Map<String, Object> stack;
         private SpoutItemStack item;
-
+        
 		public VaultStore(Map<String, Object> stack) {
 			this.stack = stack;
 		}

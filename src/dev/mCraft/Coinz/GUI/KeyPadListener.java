@@ -1,23 +1,35 @@
 package dev.mCraft.Coinz.GUI;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.Inventory;
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.GenericTextField;
+import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.VaultInv.KeypadPopup;
+import dev.mCraft.Coinz.Serializer.PersistPasswords;
+import dev.mCraft.Coinz.Serializer.PersistVault;
 
 public class KeyPadListener implements Listener {
 	private Coinz plugin = Coinz.instance;
 	private KeypadPopup hook;
+	private PersistPasswords persistPass;
+	private PersistVault persist;
 	
 	private Button button;
 	private GenericTextField pass;
+	private InventoryBuilder builder;
+	
+	private Location loc;
 	
 	public KeyPadListener() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
@@ -26,14 +38,18 @@ public class KeyPadListener implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onButtonClick(ButtonClickEvent event) {
 		hook = KeypadPopup.hook;
+		persistPass = PersistPasswords.hook;
 		
 		if (hook == null) {
 			return;
 		}
 		
 		button = event.getButton();
-		SpoutPlayer player = (SpoutPlayer)event.getPlayer();
+		SpoutPlayer player = event.getPlayer();
 
+		Block block = player.getTargetBlock(null, 6);
+		loc = block.getLocation();
+		
 		if (button.getText() != null && button.getPlugin() == plugin) {
 			pass = hook.pass;
 		
@@ -87,9 +103,50 @@ public class KeyPadListener implements Listener {
 				}
 			}
 			if (button.getId() == hook.enter.getId()) {
-				//Check the password for the location if it exists, and if it matches
-				//Else create the password
-				player.closeActiveWindow();
+				String pass = hook.pass.getText();
+				String loadPass = null;
+				
+				if (persistPass != null && loc != null) {
+					if (!persistPass.doesPasswordFileExist(loc)) {
+						try {
+							persistPass.save(loc, pass);
+						}
+						catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+						player.closeActiveWindow();
+					}
+					else {
+						try {
+							loadPass = persistPass.load(loc);
+						}
+						catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+						if (pass.equalsIgnoreCase(loadPass)) {
+							player.getMainScreen().closePopup();
+							
+							persist = PersistVault.hook;
+							builder = SpoutManager.getInventoryBuilder();
+							
+							Inventory Vault = builder.construct(9, "Vault");
+							Inventory temp = Vault;
+							
+							try {
+								temp = persist.load(loc, temp);
+							}
+							catch (Exception e) {
+								e.printStackTrace();
+							}
+							
+							Vault = temp;
+							
+							player.openInventoryWindow(Vault, loc);
+						}
+					}
+				}
 			}
 			if (button.getId() == hook.cancel.getId()) {
 				player.closeActiveWindow();

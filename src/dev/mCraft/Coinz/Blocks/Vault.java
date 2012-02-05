@@ -13,6 +13,8 @@ import org.getspout.spoutapi.material.block.GenericCuboidCustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
+import dev.mCraft.Coinz.GUI.VaultInv.KeypadPopup;
+import dev.mCraft.Coinz.Serializer.PersistPasswords;
 import dev.mCraft.Coinz.Serializer.PersistVault;
 
 public class Vault extends GenericCuboidCustomBlock {
@@ -20,12 +22,13 @@ public class Vault extends GenericCuboidCustomBlock {
 	private static Coinz plugin = Coinz.instance;
 	public static Vault hook;
 	private PersistVault persist;
+	private PersistPasswords password;
 	
 	public static int[] textID = {16, 17, 16, 16, 16, 16};
 	
 	private InventoryBuilder builder;
-	
 	public HashMap<Location, ItemStack[]> vaultInv = new HashMap<Location, ItemStack[]>();
+	private SpoutPlayer player;
 	
 	public Vault() {
 		super(plugin, "Vault", true, new Design(textID));
@@ -35,23 +38,7 @@ public class Vault extends GenericCuboidCustomBlock {
 	
 	@Override
 	public boolean onBlockInteract(World world, int x, int y, int z, SpoutPlayer player) {
-		persist = PersistVault.hook;
-		builder = SpoutManager.getInventoryBuilder();
-		Location loc = new Location(world, x, y ,z);
-		
-		Inventory Vault = builder.construct(9, "Vault");
-		Inventory test = Vault;
-		
-		try {
-			test = persist.load(loc, test);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		Vault = test;
-		
-		return player.openInventoryWindow(Vault, loc);
+		return player.getMainScreen().attachPopupScreen(new KeypadPopup());
 	}
 	
 	@Override
@@ -59,6 +46,7 @@ public class Vault extends GenericCuboidCustomBlock {
 		persist = PersistVault.hook;
 		Location loc = new Location(world, x, y, z);
 		builder = SpoutManager.getInventoryBuilder();
+		player = (SpoutPlayer)entity;
 		
 		ItemStack[] stack = new ItemStack[9];
 		stack[0] = null;
@@ -73,42 +61,47 @@ public class Vault extends GenericCuboidCustomBlock {
 		
 		Inventory tempInv = builder.construct(stack, "Vault");
 		
-		vaultInv.put(loc, stack);
-		
 		try {
 			persist.save(loc, tempInv);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		player.getMainScreen().attachPopupScreen(new KeypadPopup());
 	}
 
 	@Override
 	public void onBlockDestroyed(World world, int x, int y, int z) {
 		persist = PersistVault.hook;
-		builder = SpoutManager.getInventoryBuilder();
+		password = PersistPasswords.hook;
 		Location loc = new Location(world, x, y, z);
+		builder = SpoutManager.getInventoryBuilder();
 		
 		Inventory Vault = builder.construct(9, "Vault");
-		Inventory test = Vault;
+		Inventory temp = Vault;
 		
 		try {
-			test = persist.load(loc, test);
+			temp = persist.load(loc, temp);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		Vault = test;
+		Vault = temp;
 		
-		for (ItemStack item : Vault.getContents()) {
-			if (item != null) {
-			    world.dropItemNaturally(loc, item);
+		if (Vault != null) {
+			for (ItemStack item : Vault.getContents()) {
+				if (item != null) {
+					world.dropItemNaturally(loc, item);
+				}
 			}
 		}
 		
 		try {
 			persist.destory(loc);
+			password.destory(loc);
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
