@@ -142,22 +142,6 @@ public class Coinz extends JavaPlugin {
 		log.info(name + " has been disabled");
 	}
 	
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] split) {
-		SpoutPlayer player = null;
-		KeypadPopup popup = new KeypadPopup();
-		if (sender instanceof SpoutPlayer) {
-			player = (SpoutPlayer)sender;
-		}
-		
-		if (cmd.getName().equals("test")) {
-			player.getMainScreen().attachPopupScreen(popup);
-			return true;
-		}
-		
-		return false;
-	}
-	
 	public void registerListeners() {
 		new BlockListener();
 		new InventoryListener();
