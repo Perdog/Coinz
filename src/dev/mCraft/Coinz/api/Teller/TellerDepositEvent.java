@@ -2,6 +2,7 @@ package dev.mCraft.Coinz.api.Teller;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -10,6 +11,8 @@ import dev.mCraft.Coinz.api.Coins.Customer.TransactionResult;
 public class TellerDepositEvent extends Event implements Cancellable {
 	
 	private static final long serialVersionUID = 1348381732347730573L;
+
+	private static final HandlerList handlers = new HandlerList();
 	
 	private boolean cancelled = false;
 	private SpoutPlayer player;
@@ -74,6 +77,22 @@ public class TellerDepositEvent extends Event implements Cancellable {
 	 */
 	public void setCancelled(boolean cancel) {
 		this.cancelled = cancel;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @return Handler List
+	 */
+	public HandlerList getHandlers() {
+		return handlers;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @return Handler List
+	 */
+	public static HandlerList getHandlerList() {
+		return handlers;
 	}
 
 }
