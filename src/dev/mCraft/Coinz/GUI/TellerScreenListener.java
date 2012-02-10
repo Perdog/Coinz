@@ -49,25 +49,34 @@ public class TellerScreenListener implements Listener {
 		
 		if (button.getText() != null && button.getPlugin() == plugin) {
 			
-			try {
-				amount = Double.parseDouble(enter.getText());
-			}
-			catch(Exception e) {
-				tellerPopup.attachWidget(plugin, tellerPopup.invalidChar);
-				enter.setText("");
-				return;
-			}
-			
 			if (button.getId() == tellerPopup.escape.getId()) {
 				player.closeActiveWindow();
 			}
 			
 			if (button.getId() == tellerPopup.deposit.getId()) {
+				try {
+					amount = Double.parseDouble(enter.getText());
+				}
+				catch (Exception e) {
+					tellerPopup.attachWidget(plugin, tellerPopup.invalidChar);
+					enter.setText("");
+					return;
+				}
+				
 				customer.depositCoins(amount);
 				player.closeActiveWindow();
 			}
 			
 			if (button.getId() == tellerPopup.withdraw.getId()) {
+				try {
+					amount = Double.parseDouble(enter.getText());
+				}
+				catch (Exception e) {
+					tellerPopup.attachWidget(plugin, tellerPopup.invalidChar);
+					enter.setText("");
+					return;
+				}
+				
 				customer.withdrawCoins(amount);
 				player.closeActiveWindow();
 			}
