@@ -1,5 +1,7 @@
 package dev.mCraft.Coinz;
 
+import java.io.File;
+
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.FileManager;
 
@@ -27,8 +29,16 @@ public class Cache {
 		fm.addToPreLoginCache(plugin, Coinz.class.getResourceAsStream("/Images/HalfPlatinumCoin.png"), "HalfPlatinumCoin.png");
 		fm.addToPreLoginCache(plugin, Coinz.class.getResourceAsStream("/Images/HalfSilverCoin.png"), "HalfSilverCoin.png");
 		fm.addToPreLoginCache(plugin, Coinz.class.getResourceAsStream("/Images/PlatinumCoin.png"), "PlatinumCoin.png");
-		fm.addToPreLoginCache(plugin, Coinz.class.getResourceAsStream("/Images/SilverCoin.png"), "SilverCoin.png");
+		plugin.saveResource("Images/SilverCoin.png", false);
+		
+		File path = new File("plugins/Coinz/Images");
+		File file = new File(path, "SilverCoin.png");
+		
+		fm.addToPreLoginCache(plugin, file);
 		plugin.log.info(plugin.tag + " Item images have been loaded");
+		
+
+		plugin.log.info(fm.getCache(plugin) + " ");
 	}
 
 }
