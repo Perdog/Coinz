@@ -45,6 +45,7 @@ public class Customer {
 	 */
 	public Customer(SpoutPlayer player) {
 		this.player = player;
+		this.inv = player.getInventory();
 	}
 	
 	public enum TransactionResult {
@@ -162,8 +163,8 @@ public class Customer {
 				}
 			}
 			else {
-				plugin.econ.depositPlayer(player.getName(), amount);
-				player.sendMessage(amount + " has been added to your account");
+				plugin.econ.depositPlayer(player.getName(), deposit);
+				player.sendMessage(deposit + " has been added to your account");
 				enter.setText("");
 				balance.setText(plugin.econ.format(plugin.econ.getBalance(player.getName())));
 				result = TransactionResult.SUCCESS;
@@ -187,7 +188,6 @@ public class Customer {
 	 * @return True if they have enough coins
 	 */
 	public boolean hasEnoughCoins(double amount) {
-		inv = player.getInventory();
 		double coin = 0;
 		
 		for (ItemStack item : inv.getContents()) {
