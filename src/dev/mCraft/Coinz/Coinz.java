@@ -5,9 +5,6 @@ import java.util.logging.Logger;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,13 +15,10 @@ import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
-import org.getspout.spoutapi.player.SpoutPlayer;
-
 import dev.mCraft.Coinz.Blocks.Blocks;
 import dev.mCraft.Coinz.Coins.Items;
 import dev.mCraft.Coinz.GUI.KeyPadListener;
 import dev.mCraft.Coinz.GUI.TellerScreenListener;
-import dev.mCraft.Coinz.GUI.VaultInv.KeypadPopup;
 import dev.mCraft.Coinz.Listeners.BlockListener;
 import dev.mCraft.Coinz.Listeners.InventoryListener;
 import dev.mCraft.Coinz.Listeners.PlayerListener;
@@ -302,20 +296,17 @@ public class Coinz extends JavaPlugin {
 		mm.registerSpoutRecipe(tellerRec);
 		
 		vaultRec = new SpoutShapedRecipe(VaultBlock);
-		vaultRec.shape("AAA", "AAA", "AAA");
-		vaultRec.setIngredient('A', MaterialData.ironBlock);
+		vaultRec.shape("AAA", "A A", "AAA");
+		vaultRec.setIngredient('A', MaterialData.ironIngot);
 		mm.registerSpoutRecipe(vaultRec);
 		
 		//Just something to add to the stacktrace :P
 		this.log.info(this.tag + " Recipes pre-cooked and ready");
-		
 	}
 	
 	public void setupConfig() {
-		FileConfiguration config = this.getConfig();
-		
-		config.options().copyDefaults(true);
-		saveConfig();
+		this.saveDefaultConfig();
+		this.saveConfig();
 	}
 	
 	public boolean setupEcon() {
