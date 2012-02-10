@@ -6,12 +6,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
+
 import org.getspout.spoutapi.event.inventory.InventoryClickEvent;
 import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
+import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.Blocks.Vault;
 import dev.mCraft.Coinz.Serializer.PersistVault;
+import dev.mCraft.Coinz.api.Vault.VaultPlacedEvent;
+import dev.mCraft.Coinz.api.Vault.VaultTakeEvent;
 
 public class VaultListener implements Listener {
 	
@@ -21,9 +26,11 @@ public class VaultListener implements Listener {
 	private Inventory inv;
 	private Location loc;
 	
+	private SpoutPlayer player;
 	private String invName;
 	private int slotNum;
-	private ItemStack cursor;
+	private SpoutItemStack cursor;
+	private SpoutItemStack slot;
 	
 	public VaultListener() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
@@ -49,15 +56,17 @@ public class VaultListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void clickingVaultInv(InventoryClickEvent event) {
+		player = (SpoutPlayer) event.getPlayer();
 		inv = event.getInventory();
 		invName = inv.getName();
 		slotNum = event.getSlot();
-		cursor = event.getCursor();
+		cursor = (SpoutItemStack) event.getCursor();
+		slot = (SpoutItemStack) inv.getItem(slotNum);
 		
 		if (invName == "Vault") {
 			
 			if (cursor != null) {
-				if (slotNum == 0 && cursor.getDurability() != Coinz.CopperCoin.getDurability()) {
+				if (slotNum == 0 && cursor != Coinz.CopperCoin) {
 					event.setCancelled(true);
 				}
 				else if (slotNum == 1 && cursor.getDurability() != Coinz.HalfBronzeCoin.getDurability()) {
@@ -84,6 +93,13 @@ public class VaultListener implements Listener {
 				else if (slotNum == 8 && cursor.getDurability() != Coinz.PlatinumCoin.getDurability()) {
 					event.setCancelled(true);
 				}
+				
+				VaultPlacedEvent placeEvent = new VaultPlacedEvent(player, cursor);
+				Bukkit.getServer().getPluginManager().callEvent(placeEvent);
+			}
+			else {
+				VaultTakeEvent takeEvent = new VaultTakeEvent(player, slot);
+				Bukkit.getServer().getPluginManager().callEvent(takeEvent);
 			}
 		}
 	}
