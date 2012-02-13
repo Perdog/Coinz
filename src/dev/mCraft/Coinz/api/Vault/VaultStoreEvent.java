@@ -4,7 +4,7 @@ import org.bukkit.event.Event;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class VaultPlacedEvent extends Event {
+public class VaultStoreEvent extends Event {
 
 	private static final long serialVersionUID = -4984092047714434077L;
 	
@@ -16,7 +16,7 @@ public class VaultPlacedEvent extends Event {
 	 * @param player SpoutPlayer
 	 * @param cursor SpoutItemStack
 	 */
-	public VaultPlacedEvent(SpoutPlayer player, SpoutItemStack cursor) {
+	public VaultStoreEvent(SpoutPlayer player, SpoutItemStack cursor) {
 		this.player = player;
 		this.item = cursor;
 	}
