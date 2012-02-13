@@ -174,6 +174,45 @@ public class Customer {
 		}
 	}
 	
+	/**
+	 * Get the value of coins the player currently has in his inventory
+	 * @return The value of coins he has
+	 */
+	public double getCoins() {
+		double coin = 0;
+		
+		for (ItemStack item : inv.getContents()) {
+			if (item != null) {
+				stack = new SpoutItemStack(item);
+				dur = stack.getDurability();
+				
+				if (stack.isCustomItem()) {
+					if (dur == Coinz.CopperCoin.getDurability()) {
+						coin = coin + (stack.getAmount() * 0.1);
+					}
+					
+					if (dur == Coinz.BronzeCoin.getDurability()) {
+						coin = coin + (stack.getAmount() * 1);
+					}
+					
+					if (dur == Coinz.SilverCoin.getDurability()) {
+						coin = coin + (stack.getAmount() * 10);
+					}
+					
+					if (dur == Coinz.GoldCoin.getDurability()) {
+						coin = coin + (stack.getAmount() * 100);
+					}
+					
+					if (dur == Coinz.PlatinumCoin.getDurability()) {
+						coin = coin + (stack.getAmount() * 1000);
+					}
+				}
+			}
+		}
+		
+		return coin;
+	}
+	
 	
 	/**
 	 * Checks the players inventory to see if they have enough coins to deposit
