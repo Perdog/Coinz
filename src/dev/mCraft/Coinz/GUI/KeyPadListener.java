@@ -126,7 +126,7 @@ public class KeyPadListener implements Listener {
 						}
 						
 						if (pass.equalsIgnoreCase(loadPass)) {
-							player.closeActiveWindow();
+							player.getMainScreen().removeWidget(hook);
 							
 							persist = PersistVault.hook;
 							builder = SpoutManager.getInventoryBuilder();
