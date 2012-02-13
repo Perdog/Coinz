@@ -6,29 +6,25 @@ import org.bukkit.event.HandlerList;
 
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import dev.mCraft.Coinz.api.Coins.Customer.TransactionResult;
-
 public class TellerDepositEvent extends Event implements Cancellable {
 	
 	private static final long serialVersionUID = 1348381732347730573L;
 
 	private static final HandlerList handlers = new HandlerList();
 	
-	private boolean cancelled = false;
+	private boolean cancelled;
 	private SpoutPlayer player;
 	private double amount;
-	private TransactionResult result;
 	
 	/**
 	 * Constructor for teller deposit event
 	 * @param player SpoutPlayer
 	 * @param amount Integer
-	 * @param result TransactionResult
 	 */
-	public TellerDepositEvent(SpoutPlayer player, double amount, TransactionResult result) {
+	public TellerDepositEvent(SpoutPlayer player, double amount) {
 		this.player = player;
 		this.amount = amount;
-		this.result = result;
+		this.cancelled = false;
 	}
 	
 	/**
@@ -45,14 +41,6 @@ public class TellerDepositEvent extends Event implements Cancellable {
 	 */
 	public SpoutPlayer getPlayer() {
 		return player;
-	}
-	
-	/**
-	 * Gets the result of the transaction
-	 * @return The transaction result
-	 */
-	public TransactionResult getResult() {
-		return result;
 	}
 	
 	/**

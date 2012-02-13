@@ -28,9 +28,9 @@ public class TellerListener implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void whenPlayerDeposits(TellerDepositEvent event) {
 		SpoutPlayer player = event.getPlayer();
-		player.sendMessage("You've deposited " + event.getAmount() + " and the result was " + event.getResult());
+		player.sendMessage("You've deposited " + event.getAmount());
 		event.setAmount(6);
-		player.sendMessage("You've deposited " + event.getAmount() + " and the result was " + event.getResult());
+		player.sendMessage("You've deposited " + event.getAmount());
 	}
 	
 	@EventHandler(priority = EventPriority.NORMAL)

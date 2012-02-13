@@ -29,7 +29,6 @@ public class Customer {
 	private SpoutItemStack stack;
 	private short dur;
 	private double oldAmount;
-	private TransactionResult result = TransactionResult.FAILED;
 	
 	private GenericTextField enter = tellerPopup.enter;
 	private GenericLabel balance = tellerPopup.amount;
@@ -48,19 +47,20 @@ public class Customer {
 		this.inv = player.getInventory();
 	}
 	
-	public enum TransactionResult {
-		FAILED, IMPROPER_CHANGE, IMPROPER_WITHDRAW_AMOUNT, NOT_ENOUGH_COINS, NOT_ENOUGH_MONEY, SUCCESS
-	}
-	
 	
 	/**
 	 * Tries to deposit money into the players account and remove the coins from the inventory
 	 * @param deposit Double
 	 */
 	public void depositCoins(double deposit) {
-		double amount = deposit;
 		
-		if (hasEnoughCoins(amount)) {
+		//Calling the deposit event
+		TellerDepositEvent event = new TellerDepositEvent(player, deposit);
+		Bukkit.getServer().getPluginManager().callEvent(event);
+		
+		double amount = event.getAmount();
+		
+		if (!event.isCancelled() && hasEnoughCoins(amount)) {
 			oldAmount = amount;
 			
 			for (ItemStack item : inv.getContents()) {
@@ -135,7 +135,6 @@ public class Customer {
 			if (amount > 0) {
 				oldAmount = oldAmount - amount;
 				tellerPopup.attachWidget(plugin, tellerPopup.wrongChange);
-				result = TransactionResult.IMPROPER_CHANGE;
 				
 				while (oldAmount >= 1000) {
 					inv.addItem(Coinz.PlatinumCoin);
@@ -167,18 +166,12 @@ public class Customer {
 				player.sendMessage(deposit + " has been added to your account");
 				enter.setText("");
 				balance.setText(plugin.econ.format(plugin.econ.getBalance(player.getName())));
-				result = TransactionResult.SUCCESS;
 			}
 		}
 		
 		else {
 			tellerPopup.attachWidget(plugin, tellerPopup.notEnoughC);
-			result = TransactionResult.NOT_ENOUGH_COINS;
 		}
-		
-		//Calling the deposit event
-		TellerDepositEvent depositEvent = new TellerDepositEvent(player, deposit, result);
-		Bukkit.getServer().getPluginManager().callEvent(depositEvent);
 	}
 	
 	
@@ -233,8 +226,13 @@ public class Customer {
 	 * @param withdraw Double
 	 */
 	public void withdrawCoins(double withdraw) {
-		double amount = withdraw;
-			
+
+		//Calling the withdraw event
+		TellerWithdrawEvent event = new TellerWithdrawEvent(player, withdraw);
+		Bukkit.getServer().getPluginManager().callEvent(event);
+		
+		double amount = event.getAmount();
+		
 		if (plugin.econ.has(player.getName(), withdraw)) {
 			
 			double oldAmount = amount;
@@ -269,7 +267,6 @@ public class Customer {
 				
 				tellerPopup.attachWidget(plugin, tellerPopup.invalidAmount);
 				enter.setText("");
-				result = TransactionResult.IMPROPER_WITHDRAW_AMOUNT;
 				
 				for (ItemStack item : inv.getContents()) {
 					if (item != null) {
@@ -341,18 +338,12 @@ public class Customer {
 				player.sendMessage(enter.getText() + " " + "has been taken from your account");
 				enter.setText("");
 				balance.setText(plugin.econ.format(plugin.econ.getBalance(player.getName())));
-				result = TransactionResult.SUCCESS;
 			}
 		}
 		
 		else {
 			tellerPopup.attachWidget(plugin, tellerPopup.notEnoughA);
-			result = TransactionResult.NOT_ENOUGH_MONEY;
 		}
-
-		//Calling the withdraw event
-		TellerWithdrawEvent withdrawEvent = new TellerWithdrawEvent(player, withdraw, result);
-		Bukkit.getServer().getPluginManager().callEvent(withdrawEvent);
 	}
 }
 
