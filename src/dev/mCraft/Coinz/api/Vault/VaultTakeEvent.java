@@ -1,12 +1,15 @@
 package dev.mCraft.Coinz.api.Vault;
 
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class VaultTakeEvent extends Event {
 
 	private static final long serialVersionUID = 3871139411791321784L;
+	
+	private static HandlerList handlers = new HandlerList();
 	
 	private SpoutPlayer player;
 	private SpoutItemStack item;
@@ -36,6 +39,22 @@ public class VaultTakeEvent extends Event {
 	 */
 	public SpoutPlayer getPlayer() {
 		return player;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @return Handler List
+	 */
+	public HandlerList getHandlers() {
+		return handlers;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @return Handler List
+	 */
+	public static HandlerList getHandlerList() {
+		return handlers;
 	}
 
 }
