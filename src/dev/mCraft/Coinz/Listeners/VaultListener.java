@@ -60,8 +60,8 @@ public class VaultListener implements Listener {
 		inv = event.getInventory();
 		invName = inv.getName();
 		slotNum = event.getSlot();
-		cursor = (SpoutItemStack) event.getCursor();
-		slot = (SpoutItemStack) inv.getItem(slotNum);
+		cursor = new SpoutItemStack(event.getCursor());
+		slot = new SpoutItemStack(inv.getItem(slotNum));
 		
 		if (invName == "Vault") {
 			
@@ -75,28 +75,28 @@ public class VaultListener implements Listener {
 				if (slotNum == 0 && item != Coinz.CopperCoin) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 1 && item.getDurability() != Coinz.HalfBronzeCoin.getDurability()) {
+				else if (slotNum == 1 && item != Coinz.HalfBronzeCoin) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 2 && item.getDurability() != Coinz.BronzeCoin.getDurability()) {
+				else if (slotNum == 2 && item != Coinz.BronzeCoin) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 3 && item.getDurability() != Coinz.HalfSilverCoin.getDurability()) {
+				else if (slotNum == 3 && item != Coinz.HalfSilverCoin) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 4 && item.getDurability() != Coinz.SilverCoin.getDurability()) {
+				else if (slotNum == 4 && item != Coinz.SilverCoin) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 5 && item.getDurability() != Coinz.HalfGoldCoin.getDurability()) {
+				else if (slotNum == 5 && item != Coinz.HalfGoldCoin) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 6 && item.getDurability() != Coinz.GoldCoin.getDurability()) {
+				else if (slotNum == 6 && item != Coinz.GoldCoin) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 7 && item.getDurability() != Coinz.HalfPlatinumCoin.getDurability()) {
+				else if (slotNum == 7 && item != Coinz.HalfPlatinumCoin) {
 					event.setCancelled(true);
 				}
-				else if (slotNum == 8 && item.getDurability() != Coinz.PlatinumCoin.getDurability()) {
+				else if (slotNum == 8 && item != Coinz.PlatinumCoin) {
 					event.setCancelled(true);
 				}
 			}

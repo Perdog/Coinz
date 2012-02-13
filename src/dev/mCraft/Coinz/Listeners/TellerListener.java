@@ -29,7 +29,7 @@ public class TellerListener implements Listener {
 	public void whenPlayerDeposits(TellerDepositEvent event) {
 		SpoutPlayer player = event.getPlayer();
 		player.sendMessage("You've deposited " + event.getAmount());
-		event.setAmount(6);
+		event.setAmount(1);
 		player.sendMessage("You've deposited " + event.getAmount());
 	}
 	

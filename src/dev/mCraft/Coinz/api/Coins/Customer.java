@@ -28,7 +28,7 @@ public class Customer {
 	private PlayerInventory inv;
 	private SpoutItemStack stack;
 	private short dur;
-	private double oldAmount;
+	private double temp;
 	
 	private GenericTextField enter = tellerPopup.enter;
 	private GenericLabel balance = tellerPopup.amount;
@@ -61,7 +61,7 @@ public class Customer {
 		double amount = event.getAmount();
 		
 		if (!event.isCancelled() && hasEnoughCoins(amount)) {
-			oldAmount = amount;
+			temp = amount;
 			
 			for (ItemStack item : inv.getContents()) {
 				if (item != null) {
@@ -93,77 +93,77 @@ public class Customer {
 			}
 			
 			if (plat != null && plat.getDurability() == Coinz.PlatinumCoin.getDurability()) {
-				while (plat.getAmount() >=1 && amount >= 1000) {
+				while (plat.getAmount() >=1 && temp >= 1000) {
 					inv.removeItem(Coinz.PlatinumCoin);
-					amount = amount - 1000;
+					temp = temp - 1000;
 					plat.setAmount(plat.getAmount() - 1);
 				}
 			}
 			
 			if (gold != null && gold.getDurability() == Coinz.GoldCoin.getDurability()) {
-				while (gold.getAmount() >= 1 && amount >= 100) {
+				while (gold.getAmount() >= 1 && temp >= 100) {
 					inv.removeItem(Coinz.GoldCoin);
-					amount = amount - 100;
+					temp = temp - 100;
 					gold.setAmount(gold.getAmount() - 1);
 				}
 			}
 			
 			if (silv != null && silv.getDurability() == Coinz.SilverCoin.getDurability()) {
-				while (silv.getAmount() >= 1 && amount >= 10) {
+				while (silv.getAmount() >= 1 && temp >= 10) {
 					inv.removeItem(Coinz.SilverCoin);
-					amount = amount - 10;
+					temp = temp - 10;
 					silv.setAmount(silv.getAmount() - 1);
 				}
 			}
 			
 			if (bron != null && bron.getDurability() == Coinz.BronzeCoin.getDurability()) {
-				while (bron.getAmount() >= 1 && amount >= 1) {
+				while (bron.getAmount() >= 1 && temp >= 1) {
 					inv.removeItem(Coinz.BronzeCoin);
-					amount = amount - 1;
+					temp = temp - 1;
 					bron.setAmount(bron.getAmount() - 1);
 				}
 			}
 			
 			if (copp != null && copp.getDurability() == Coinz.CopperCoin.getDurability()) {
-				while (copp.getAmount() >= 1 && amount >= 0.1) {
+				while (copp.getAmount() >= 1 && temp >= 0.1) {
 					inv.removeItem(Coinz.CopperCoin);
-					amount = amount - 0.1;
+					temp = temp - 0.1;
 					copp.setAmount(copp.getAmount() - 1);
 				}
 			}
 			
-			if (amount > 0) {
-				oldAmount = oldAmount - amount;
+			if (temp > 0) {
+				amount = amount - temp;
 				tellerPopup.attachWidget(plugin, tellerPopup.wrongChange);
 				
-				while (oldAmount >= 1000) {
+				while (amount >= 1000) {
 					inv.addItem(Coinz.PlatinumCoin);
-					oldAmount = oldAmount - 1000;
+					amount = amount - 1000;
 				}
 				
-				while (oldAmount >= 100) {
+				while (amount >= 100) {
 					inv.addItem(Coinz.GoldCoin);
-					oldAmount = oldAmount - 100;
+					amount = amount - 100;
 				}
 				
-				while (oldAmount >= 10) {
+				while (amount >= 10) {
 					inv.addItem(Coinz.SilverCoin);
-					oldAmount = oldAmount - 10;
+					amount = amount - 10;
 				}
 				
-				while (oldAmount >= 1) {
+				while (amount >= 1) {
 					inv.addItem(Coinz.BronzeCoin);
-					oldAmount = oldAmount - 1;
+					amount = amount - 1;
 				}
 				
-				while (oldAmount >= 0.1) {
+				while (amount >= 0.1) {
 					inv.addItem(Coinz.CopperCoin);
-					oldAmount = oldAmount - 0.1;
+					amount = amount - 0.1;
 				}
 			}
 			else {
-				plugin.econ.depositPlayer(player.getName(), deposit);
-				player.sendMessage(deposit + " has been added to your account");
+				plugin.econ.depositPlayer(player.getName(), amount);
+				player.sendMessage(amount + " has been added to your account");
 				enter.setText("");
 				balance.setText(plugin.econ.format(plugin.econ.getBalance(player.getName())));
 			}
@@ -176,7 +176,7 @@ public class Customer {
 	
 	/**
 	 * Get the value of coins the player currently has in his inventory
-	 * @return The value of coins he has
+	 * @return The value of coins the player has
 	 */
 	public double getCoins() {
 		double coin = 0;
@@ -272,37 +272,37 @@ public class Customer {
 		
 		double amount = event.getAmount();
 		
-		if (plugin.econ.has(player.getName(), withdraw)) {
+		if (plugin.econ.has(player.getName(), amount)) {
 			
-			double oldAmount = amount;
+			temp = amount;
 			
-			while (amount >= 1000) {
+			while (temp >= 1000) {
 				inv.addItem(Coinz.PlatinumCoin);
-				amount = amount - 1000;
+				temp = temp - 1000;
 			}
 			
-			while (amount >= 100) {
+			while (temp >= 100) {
 				inv.addItem(Coinz.GoldCoin);
-				amount = amount - 100;
+				temp = temp - 100;
 			}
 			
-			while (amount >= 10) {
+			while (temp >= 10) {
 				inv.addItem(Coinz.SilverCoin);
-				amount = amount - 10;
+				temp = temp - 10;
 			}
 			
-			while (amount >= 1) {
+			while (temp >= 1) {
 				inv.addItem(Coinz.BronzeCoin);
-				amount = amount - 1;
+				temp = temp - 1;
 			}
 			
-			while (amount >= 0.1) {
+			while (temp >= 0.1) {
 				inv.addItem(Coinz.CopperCoin);
-				amount = amount - 0.1;
+				temp = temp - 0.1;
 			}
 			
-			if (amount > 0) {
-				oldAmount = oldAmount - amount;
+			if (temp > 0) {
+				amount = amount - temp;
 				
 				tellerPopup.attachWidget(plugin, tellerPopup.invalidAmount);
 				enter.setText("");
@@ -336,45 +336,45 @@ public class Customer {
 					}
 				}
 				
-				while (oldAmount >= 1000) {
+				while (amount >= 1000) {
 					if (plat != null && plat.getAmount() >= 1) {
 						plat.setAmount(plat.getAmount() - 1);
-						oldAmount = oldAmount - 1000;
+						amount = amount - 1000;
 					}
 				}
 				
-				while (oldAmount >= 100) {
+				while (amount >= 100) {
 					if (gold != null && gold.getAmount() >= 1) {
 						gold.setAmount(gold.getAmount() - 1);
-						oldAmount = oldAmount - 100;
+						amount = amount - 100;
 					}
 				}
 				
-				while (oldAmount >= 10) {
+				while (amount >= 10) {
 					if (silv != null && silv.getAmount() >= 1) {
 						silv.setAmount(silv.getAmount() - 1);
-						oldAmount = oldAmount - 10;
+						amount = amount - 10;
 					}
 				}
 				
-				while (oldAmount >= 1) {
+				while (amount >= 1) {
 					if (bron != null && bron.getAmount() >= 1) {
 						bron.setAmount(bron.getAmount() - 1);
-						oldAmount = oldAmount - 1;
+						amount = amount - 1;
 					}
 				}
 					
-				while (oldAmount >= 0.1) {
+				while (amount >= 0.1) {
 					if (copp != null && copp.getAmount() >= 1) {
 						copp.setAmount(copp.getAmount() - 1);
-						oldAmount = oldAmount - 0.1;
+						amount = amount - 0.1;
 					}
 				}
 			}
 			
 			else {
-				plugin.econ.withdrawPlayer(player.getName(), withdraw);
-				player.sendMessage(enter.getText() + " " + "has been taken from your account");
+				plugin.econ.withdrawPlayer(player.getName(), amount);
+				player.sendMessage(amount + " " + "has been taken from your account");
 				enter.setText("");
 				balance.setText(plugin.econ.format(plugin.econ.getBalance(player.getName())));
 			}
