@@ -15,7 +15,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.Blocks.Vault;
 import dev.mCraft.Coinz.Serializer.PersistVault;
-import dev.mCraft.Coinz.api.Vault.VaultPlacedEvent;
+import dev.mCraft.Coinz.api.Vault.VaultStoreEvent;
 import dev.mCraft.Coinz.api.Vault.VaultTakeEvent;
 
 public class VaultListener implements Listener {
@@ -66,36 +66,39 @@ public class VaultListener implements Listener {
 		if (invName == "Vault") {
 			
 			if (cursor != null) {
-				if (slotNum == 0 && cursor != Coinz.CopperCoin) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 1 && cursor.getDurability() != Coinz.HalfBronzeCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 2 && cursor.getDurability() != Coinz.BronzeCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 3 && cursor.getDurability() != Coinz.HalfSilverCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 4 && cursor.getDurability() != Coinz.SilverCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 5 && cursor.getDurability() != Coinz.HalfGoldCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 6 && cursor.getDurability() != Coinz.GoldCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 7 && cursor.getDurability() != Coinz.HalfPlatinumCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 8 && cursor.getDurability() != Coinz.PlatinumCoin.getDurability()) {
-					event.setCancelled(true);
-				}
 				
-				VaultPlacedEvent placeEvent = new VaultPlacedEvent(player, cursor);
-				Bukkit.getServer().getPluginManager().callEvent(placeEvent);
+				VaultStoreEvent storeEvent = new VaultStoreEvent(player, cursor);
+				Bukkit.getServer().getPluginManager().callEvent(storeEvent);
+				
+				SpoutItemStack item = storeEvent.getItemStack();
+				
+				if (slotNum == 0 && item != Coinz.CopperCoin) {
+					event.setCancelled(true);
+				}
+				else if (slotNum == 1 && item.getDurability() != Coinz.HalfBronzeCoin.getDurability()) {
+					event.setCancelled(true);
+				}
+				else if (slotNum == 2 && item.getDurability() != Coinz.BronzeCoin.getDurability()) {
+					event.setCancelled(true);
+				}
+				else if (slotNum == 3 && item.getDurability() != Coinz.HalfSilverCoin.getDurability()) {
+					event.setCancelled(true);
+				}
+				else if (slotNum == 4 && item.getDurability() != Coinz.SilverCoin.getDurability()) {
+					event.setCancelled(true);
+				}
+				else if (slotNum == 5 && item.getDurability() != Coinz.HalfGoldCoin.getDurability()) {
+					event.setCancelled(true);
+				}
+				else if (slotNum == 6 && item.getDurability() != Coinz.GoldCoin.getDurability()) {
+					event.setCancelled(true);
+				}
+				else if (slotNum == 7 && item.getDurability() != Coinz.HalfPlatinumCoin.getDurability()) {
+					event.setCancelled(true);
+				}
+				else if (slotNum == 8 && item.getDurability() != Coinz.PlatinumCoin.getDurability()) {
+					event.setCancelled(true);
+				}
 			}
 			else {
 				VaultTakeEvent takeEvent = new VaultTakeEvent(player, slot);
