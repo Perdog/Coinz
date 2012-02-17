@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
  
 import org.bukkit.Location;
@@ -25,7 +23,7 @@ public class PersistVault implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String direct = "plugins/Coinz/Vault_Locations";
-    private List<VaultStore> stacks;
+    private VaultStore[] stacks;
     
     public PersistVault() {
     	hook = this;
@@ -33,58 +31,64 @@ public class PersistVault implements Serializable {
     
     public void save(Location loc, Inventory inv) throws IOException {
     	
-    	stacks = new ArrayList<VaultStore>();
+    	stacks = new VaultStore[9];
     	
     	for (ItemStack item : inv.getContents()) {
     		if (item != null) {
     			SpoutItemStack stack = new SpoutItemStack(item);
-    			stacks.add(new VaultStore(this.serialize(stack)));
+    			for (int i = 0; i < stacks.length; i++) {
+    				if (stacks[i] == null) stacks[i] = new VaultStore(this.serialize(stack));
+    			}
     		}
     	}
     	
     	File file = getLocationFile(loc);
     	
     	ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file, false));
-    	out.writeObject(this);
-    	out.flush();
+    	out.writeObject(stacks);
     	out.close();
     }
  
     public Inventory load(Location loc, Inventory inv) throws IOException, ClassNotFoundException {
     	File file = getLocationFile(loc);
     	
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-        PersistVault loaded = (PersistVault) in.readObject();
-        in.close();
+    	FileInputStream stream = new FileInputStream(file);
+    	ObjectInputStream in = new ObjectInputStream(stream);
+        VaultStore[] loaded = (VaultStore[]) in.readObject();
         
-        for(VaultStore stack : loaded.stacks) {
-        	SpoutItemStack item = stack.convert();
-        	if (item.getDurability() == Coinz.CopperCoin.getDurability()) {
-        		inv.setItem(0, item);
-        	}
-        	if (item.getDurability() == Coinz.HalfBronzeCoin.getDurability()) {
-        		inv.setItem(1, item);
-        	}
-        	if (item.getDurability() == Coinz.BronzeCoin.getDurability()) {
-        		inv.setItem(2, item);
-        	}
-        	if (item.getDurability() == Coinz.HalfSilverCoin.getDurability()) {
-        		inv.setItem(3, item);
-        	}
-        	if (item.getDurability() == Coinz.SilverCoin.getDurability()) {
-        		inv.setItem(4, item);
-        	}
-        	if (item.getDurability() == Coinz.HalfGoldCoin.getDurability()) {
-        		inv.setItem(5, item);
-        	}
-        	if (item.getDurability() == Coinz.GoldCoin.getDurability()) {
-        		inv.setItem(6, item);
-        	}
-        	if (item.getDurability() == Coinz.HalfPlatinumCoin.getDurability()) {
-        		inv.setItem(7, item);
-        	}
-        	if (item.getDurability() == Coinz.PlatinumCoin.getDurability()) {
-        		inv.setItem(8, item);
+        in.close();
+        stream.close();
+        
+        for(VaultStore stack : loaded) {
+        	if (stack != null) {
+        		SpoutItemStack item = stack.convert();
+        		if (item.getDurability() == Coinz.CopperCoin.getDurability()) {
+        			inv.setItem(0, item);
+        		}
+        		if (item.getDurability() == Coinz.HalfBronzeCoin.getDurability()) {
+        			inv.setItem(1, item);
+        		}
+        		if (item.getDurability() == Coinz.BronzeCoin.getDurability()) {
+        			inv.setItem(2, item);
+        		}
+        		if (item.getDurability() == Coinz.HalfSilverCoin.getDurability()) {
+        			inv.setItem(3, item);
+        		}
+        		if (item.getDurability() == Coinz.SilverCoin.getDurability()) {
+        			inv.setItem(4, item);
+        		}
+        		if (item.getDurability() == Coinz.HalfGoldCoin.getDurability()) {
+        			inv.setItem(5, item);
+        		}
+        		if (item.getDurability() == Coinz.GoldCoin.getDurability()) {
+        			inv.setItem(6, item);
+        		}
+        		if (item.getDurability() == Coinz.HalfPlatinumCoin.getDurability()) {
+        			inv.setItem(7, item);
+        		}
+        		if (item.getDurability() == Coinz.PlatinumCoin.getDurability()) {
+        			inv.setItem(8, item);
+        		}
         	}
         }
         
@@ -125,7 +129,7 @@ public class PersistVault implements Serializable {
     
     public void destory(Location loc) throws IOException, ClassNotFoundException {
     	String name = loc.toString();
-    	File file = new File(direct, name);
+    	File file = new File(direct, name + ".txt");
     	file.delete();
     }
  
@@ -146,7 +150,7 @@ public class PersistVault implements Serializable {
     
     public File getLocationFile(Location loc) {
     	String name = loc.toString();
-    	File file = new File(direct, name);
+    	File file = new File(direct, name + ".txt");
         
         if(!file.exists()){
             createLocationFile(file);
