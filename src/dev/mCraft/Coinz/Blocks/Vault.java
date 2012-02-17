@@ -14,19 +14,17 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.VaultInv.KeypadPopup;
-import dev.mCraft.Coinz.Serializer.PersistPasswords;
 import dev.mCraft.Coinz.Serializer.PersistVault;
 
 public class Vault extends GenericCuboidCustomBlock {
 	
 	private static Coinz plugin = Coinz.instance;
-	public static Vault hook;
-	private PersistVault persist;
-	private PersistPasswords password;
+	public static Vault hook = null;
+	private PersistVault persist = null;
 	
 	public static int[] textID = {16, 17, 16, 16, 16, 16};
 	
-	private InventoryBuilder builder;
+	private InventoryBuilder builder = null;
 	public HashMap<Location, ItemStack[]> vaultInv = new HashMap<Location, ItemStack[]>();
 	private SpoutPlayer player;
 	
@@ -69,42 +67,5 @@ public class Vault extends GenericCuboidCustomBlock {
 		}
 		
 		player.getMainScreen().attachPopupScreen(new KeypadPopup());
-	}
-
-	@Override
-	public void onBlockDestroyed(World world, int x, int y, int z) {
-		persist = PersistVault.hook;
-		password = PersistPasswords.hook;
-		Location loc = new Location(world, x, y, z);
-		builder = SpoutManager.getInventoryBuilder();
-		
-		Inventory Vault = builder.construct(9, "Vault");
-		Inventory temp = Vault;
-		
-		try {
-			temp = persist.load(loc, temp);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		Vault = temp;
-		
-		if (Vault != null) {
-			for (ItemStack item : Vault.getContents()) {
-				if (item != null) {
-					world.dropItemNaturally(loc, item);
-				}
-			}
-		}
-		
-		try {
-			persist.destory(loc);
-			password.destory(loc);
-			
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }
