@@ -1,4 +1,4 @@
-package dev.mCraft.Coinz.api.Coins;
+package dev.mCraft.Coinz.api;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
@@ -11,8 +11,8 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.TellerMenu.TellerPopup;
-import dev.mCraft.Coinz.api.Teller.TellerDepositEvent;
-import dev.mCraft.Coinz.api.Teller.TellerWithdrawEvent;
+import dev.mCraft.Coinz.api.Events.Teller.TellerDepositEvent;
+import dev.mCraft.Coinz.api.Events.Teller.TellerWithdrawEvent;
 
 public class Customer {
 	private Coinz plugin = Coinz.instance;

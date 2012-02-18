@@ -13,7 +13,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.TellerMenu.TellerPopup;
-import dev.mCraft.Coinz.api.Coins.Customer;
+import dev.mCraft.Coinz.api.Customer;
 
 public class TellerScreenListener implements Listener {
 	private TellerPopup tellerPopup;

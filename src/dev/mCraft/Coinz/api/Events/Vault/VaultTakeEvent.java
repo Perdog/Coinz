@@ -1,39 +1,40 @@
-package dev.mCraft.Coinz.api.Vault;
+package dev.mCraft.Coinz.api.Events.Vault;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class VaultStoreEvent extends Event {
+public class VaultTakeEvent extends Event {
 
-	private static final long serialVersionUID = -4984092047714434077L;
-
-	private static final HandlerList handlers = new HandlerList();
+	private static final long serialVersionUID = 3871139411791321784L;
+	
+	private static HandlerList handlers = new HandlerList();
 	
 	private SpoutPlayer player;
 	private SpoutItemStack item;
 	
 	/**
-	 * Constructor for the vault place event
+	 * 
+	 * Constructor for the vault take event
 	 * @param player SpoutPlayer
-	 * @param cursor SpoutItemStack
+	 * @param slot SpoutItemStack
 	 */
-	public VaultStoreEvent(SpoutPlayer player, SpoutItemStack cursor) {
+	public VaultTakeEvent(SpoutPlayer player, SpoutItemStack slot) {
 		this.player = player;
-		this.item = cursor;
+		this.item = slot;
 	}
 	
 	/**
-	 * Get the item involved in the event
+	 * Gets the item involved in the event
 	 * @return The item involved
 	 */
-	public SpoutItemStack getItemStack() {
+	public SpoutItemStack getItem() {
 		return item;
 	}
 	
 	/**
-	 * Get the player involved in the event
+	 * Gets the player involved in the event
 	 * @return The player involved
 	 */
 	public SpoutPlayer getPlayer() {

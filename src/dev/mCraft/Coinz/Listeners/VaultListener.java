@@ -21,8 +21,8 @@ import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.Blocks.Vault;
 import dev.mCraft.Coinz.Serializer.PersistPasswords;
 import dev.mCraft.Coinz.Serializer.PersistVault;
-import dev.mCraft.Coinz.api.Vault.VaultStoreEvent;
-import dev.mCraft.Coinz.api.Vault.VaultTakeEvent;
+import dev.mCraft.Coinz.api.Events.Vault.VaultStoreEvent;
+import dev.mCraft.Coinz.api.Events.Vault.VaultTakeEvent;
 
 public class VaultListener implements Listener {
 	
@@ -93,6 +93,7 @@ public class VaultListener implements Listener {
 		
 		inv = event.getInventory();
 		loc = event.getLocation();
+		//event.getPlayer().getTargetBlock(null, 6);
 		
 		if (inv.getName() == "Vault" && vault != null) {
 			try {
