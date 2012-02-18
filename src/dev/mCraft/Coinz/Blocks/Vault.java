@@ -30,7 +30,7 @@ public class Vault extends GenericCuboidCustomBlock {
 	
 	public Vault() {
 		super(plugin, "Vault", true, new Design(textID));
-		setHardness(MaterialData.furnace.getHardness());
+		setHardness(MaterialData.obsidian.getHardness());
 		hook = this;
 	}
 	
