@@ -8,10 +8,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.player.SpoutPlayer;
-
 import dev.mCraft.Coinz.Coinz;
-import dev.mCraft.Coinz.api.Teller.TellerDepositEvent;
 
 public class TellerListener implements Listener {
 	
@@ -23,14 +20,6 @@ public class TellerListener implements Listener {
 	
 	public TellerListener() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
-	}
-	
-	@EventHandler(priority = EventPriority.NORMAL)
-	public void whenPlayerDeposits(TellerDepositEvent event) {
-		SpoutPlayer player = event.getPlayer();
-		player.sendMessage("You've deposited " + event.getAmount());
-		event.setAmount(1);
-		player.sendMessage("You've deposited " + event.getAmount());
 	}
 	
 	@EventHandler(priority = EventPriority.NORMAL)
