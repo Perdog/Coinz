@@ -1,6 +1,5 @@
 package dev.mCraft.Coinz.GUI.TellerMenu;
 
-import org.bukkit.configuration.ConfigurationSection;
 import org.getspout.spoutapi.gui.Color;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericLabel;
@@ -12,11 +11,11 @@ import org.getspout.spoutapi.gui.WidgetAnchor;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
+import dev.mCraft.Coinz.Lang.CLang;
 
 public class TellerPopup extends GenericPopup {
 	
 	public Coinz plugin = Coinz.instance;
-	private ConfigurationSection locale;
 	
 	public static TellerPopup hook;
 	
@@ -45,8 +44,6 @@ public class TellerPopup extends GenericPopup {
 	public TellerPopup(SpoutPlayer player) {
 		hook = this;
 		
-		locale = plugin.getConfig().getConfigurationSection("Language");
-		
 		copper = new GenericTexture();
 		bronze = new GenericTexture();
 		silver = new GenericTexture();
@@ -71,31 +68,31 @@ public class TellerPopup extends GenericPopup {
 		Integer coindist = 30;
 		
 		copper.setUrl("spoutcraft/cache/Coinz/CopperCoin.png");
-		copper.setTooltip(locale.getString("ToolTips.CoppCoin"));
+		copper.setTooltip(CLang.lookup("tooltip_copper"));
 		copper.setX(150).setY(100);
 		copper.setHeight(coinsize).setWidth(coinsize);
 		copper.setPriority(RenderPriority.High);
 		
 		bronze.setUrl("spoutcraft/cache/Coinz/BronzeCoin.png");
-		bronze.setTooltip(locale.getString("ToolTips.BronCoin"));
+		bronze.setTooltip(CLang.lookup("tooltip_bronze"));
 		bronze.setX(copper.getX() + coindist).setY(100);
 		bronze.setHeight(coinsize).setWidth(coinsize);
 		bronze.setPriority(RenderPriority.High);
 		
 		silver.setUrl("spoutcraft/cache/Coinz/SilverCoin.png");
-		silver.setTooltip(locale.getString("ToolTips.SilvCoin"));
+		silver.setTooltip(CLang.lookup("tooltip_silver"));
 		silver.setX(bronze.getX() + coindist).setY(100);
 		silver.setHeight(coinsize).setWidth(coinsize);
 		silver.setPriority(RenderPriority.High);
 		
 		gold.setUrl("spoutcraft/cache/Coinz/GoldCoin.png");
-		gold.setTooltip(locale.getString("ToolTips.GoldCoin"));
+		gold.setTooltip(CLang.lookup("tooltip_gold"));
 		gold.setX(silver.getX() + coindist).setY(100);
 		gold.setHeight(coinsize).setWidth(coinsize);
 		gold.setPriority(RenderPriority.High);
 		
 		platinum.setUrl("spoutcraft/cache/Coinz/PlatinumCoin.png");
-		platinum.setTooltip(locale.getString("ToolTips.PlatCoin"));
+		platinum.setTooltip(CLang.lookup("tooltip_platinum"));
 		platinum.setX(gold.getX() + coindist).setY(100);
 		platinum.setHeight(coinsize).setWidth(coinsize);
 		platinum.setPriority(RenderPriority.High);
@@ -106,37 +103,40 @@ public class TellerPopup extends GenericPopup {
 		//backGround.setPriority(RenderPriority.Highest);
 		
 		escape.setText("X").setColor(new Color(1.0F, 0, 0, 1.0F));
-		escape.setTooltip(locale.getString("ToolTips.Escape"));
+		escape.setTooltip(CLang.lookup("tooltips_escape"));
 		escape.setX(287).setY(84);
 		escape.setHeight(10).setWidth(10);
 		escape.setPriority(RenderPriority.Normal);
-		
+
+		String locale = CLang.lookup("label_title");
+		String name = player.getName();
 		title.setTextColor(new Color(205F, 127F, 50F, 1.0F));
-		title.setText(player.getName() + "'s bank");
+		title.setText(CLang.replace(locale, "player", name));
 		title.setX(186).setY(69);
 		title.setHeight(20).setWidth(30);
 		title.setPriority(RenderPriority.Normal);
-		
+
+		String message = CLang.lookup("label_balance");
 		balance = plugin.econ.getBalance(player.getName());
 		amount.setTextColor(new Color(0, 1.0F, 0, 1.0F));
-		amount.setText(plugin.econ.format(balance));
+		amount.setText(CLang.replace(message, "holdings", plugin.econ.format(balance)));
 		amount.setX(159).setY(87);
 		amount.setHeight(20).setWidth(30);
 		amount.setPriority(RenderPriority.Normal);
 		
 		enter.setHeight(9).setWidth(45);
 		enter.setX(200).setY(131);
-		enter.setPlaceholder(locale.getString("PlaceHolder"));
+		enter.setPlaceholder(CLang.lookup("placeholder_teller"));
 		enter.setPriority(RenderPriority.Normal);
 		
 		deposit.setX(enter.getX() - 33).setY(enter.getY()-4);
 		deposit.setHeight(14).setWidth(30);
-		deposit.setText(locale.getString("Buttons.Deposit")).setTooltip(locale.getString("ToolTips.Deposit"));
+		deposit.setText(CLang.lookup("button_deposit")).setTooltip(CLang.lookup("tooltip_deposit"));
 		deposit.setPriority(RenderPriority.Normal);
 		
 		withdraw.setX(enter.getX() + 47).setY(enter.getY()-4);
 		withdraw.setHeight(14).setWidth(33);
-		withdraw.setText(locale.getString("Buttons.Withdraw")).setTooltip(locale.getString("ToolTips.Withdraw"));
+		withdraw.setText(CLang.lookup("button_withdraw")).setTooltip(CLang.lookup("tooltip_withdraw"));
 		withdraw.setPriority(RenderPriority.Normal);
 		
 		this.attachWidgets(plugin, copper, bronze, silver, gold, platinum, /*backGround,*/ escape, title, amount, enter, deposit, withdraw);
@@ -144,27 +144,27 @@ public class TellerPopup extends GenericPopup {
 		
 		notEnoughA.setX(110).setY(150);
 		notEnoughA.setHeight(5).setWidth(30);
-		notEnoughA.setText(locale.getString("Errors.Not enough money")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		notEnoughA.setText(CLang.lookup("error_NEM")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
 		notEnoughA.setPriority(RenderPriority.Normal);
 		
 		notEnoughC.setX(110).setY(150);
 		notEnoughC.setHeight(5).setWidth(30);
-		notEnoughC.setText(locale.getString("Errors.Not enough coins")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		notEnoughC.setText(CLang.lookup("error_NEC")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
 		notEnoughC.setPriority(RenderPriority.Normal);
 		
 		wrongChange.setX(110).setY(150);
 		wrongChange.setHeight(5).setWidth(20);
-		wrongChange.setText(locale.getString("Errors.Wrong change")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		wrongChange.setText(CLang.lookup("error_WC")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
 		wrongChange.setPriority(RenderPriority.Normal);
 		
 		invalidChar.setX(110).setY(150);
 		invalidChar.setHeight(5).setWidth(20);
-		invalidChar.setText(locale.getString("Errors.Invalid character")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		invalidChar.setText(CLang.lookup("error_IC")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
 		invalidChar.setPriority(RenderPriority.Normal);
 		
 		invalidAmount.setX(110).setY(150);
 		invalidAmount.setHeight(5).setWidth(20);
-		invalidAmount.setText(locale.getString("Errors.Invalid amount")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
+		invalidAmount.setText(CLang.lookup("error_IA")).setTextColor(new Color(1.0F, 0, 0, 1.0F));
 		invalidAmount.setPriority(RenderPriority.Normal);
 	}
 }

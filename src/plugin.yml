@@ -1,7 +1,8 @@
 main: dev.mCraft.Coinz.Coinz
 name: Coinz
 description: A spout plugin that adds a physical currency to the game.
-version: 0.2.1
+version: 0.2.2
+author: Perdog
 depend: [Spout, Vault]
 permissions:
   coinz.*:

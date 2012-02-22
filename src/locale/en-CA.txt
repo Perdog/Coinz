@@ -1,0 +1,46 @@
+version: 0.2.2
+lang: en-CA
+
+# This is the default language file. To make a file in your language, simply copy this file and
+# replace the text lines. Please keep in mind any words enclosed in %'s are used internally.
+# You can move them to another spot within the text but remember to type it exactly as it was
+# before.
+# i.e label_account: 
+
+# All lines starting with # are ignored, all blank lines are also ignored.
+
+# Feel free to submit the language files you create to me, and I'll include them in future versions.
+# I will not keep them up to date though, as I only speak english, and google translate isn't
+# 100% reliable.
+
+# Buttons
+button_deposit: Deposit
+button_withdraw: Withdraw
+button_cancel: Cancel
+button_corr: Corr
+button_enter: Enter
+
+# Errors
+error_IA: Text field contains an invalid amount
+error_IC: This field only accepts numbers
+error_NEC: Your inventory does not contain enough coins
+error_NEM: Your account does not contain enough money
+error_WC: You do not have the proper change for this transaction
+
+# Labels
+label_balance: %holdings%
+label_title: %player%'s bank
+
+# Place holders
+placeholder_keypad: Enter password
+placeholder_teller: Enter amout
+
+# ToolTips
+tooltip_copper: Copper coin value: $0.1
+tooltip_bronze: Bronze coin value: $1
+tooltip_silver: Silver coin value: $10
+tooltip_gold: Gold coin value: $100
+tooltip_platinum: Platinum coin value: $1000
+tooltip_escape: Close the popup
+tooltip_withdraw: Withdraw coins from your account
+tooltip_deposit: Deposit coins into your account

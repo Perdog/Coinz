@@ -19,6 +19,7 @@ import dev.mCraft.Coinz.Blocks.Blocks;
 import dev.mCraft.Coinz.Coins.Items;
 import dev.mCraft.Coinz.GUI.KeyPadListener;
 import dev.mCraft.Coinz.GUI.TellerScreenListener;
+import dev.mCraft.Coinz.Lang.CLang;
 import dev.mCraft.Coinz.Listeners.BlockListener;
 import dev.mCraft.Coinz.Listeners.InventoryListener;
 import dev.mCraft.Coinz.Listeners.PlayerListener;
@@ -109,14 +110,16 @@ public class Coinz extends JavaPlugin {
 		//instancing the plugin so we can hook other classes
 		instance = this;
 		
-		setupEcon();
-		setupPerm();
-		setupConfig();
-		
 		name = this.getDescription().getFullName();
 		log = Logger.getLogger("Minecraft");
 		
 		mm = SpoutManager.getMaterialManager();
+		
+		setupEcon();
+		setupPerm();
+		setupConfig();
+		
+		CLang.loadLang();
 		
 		new Cache();
 		

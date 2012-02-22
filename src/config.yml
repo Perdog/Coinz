@@ -1,20 +1,2 @@
 Language:
-  PlaceHolder: Enter amount
-  Buttons:
-    Withdraw: Withdraw
-    Deposit: Deposit
-  ToolTips:
-    Escape: Close the popup
-    Withdraw: Take coins out of your account
-    Deposit: Put coins back into your accout
-    CoppCoin: 'Copper coin value: $0.1'
-    BronCoin: 'Bronze coin value: $1'
-    SilvCoin: 'Silver coin value: $10'
-    GoldCoin: 'Gold coin value: $100'
-    PlatCoin: 'Platinum coin value: $1,000'
-  Errors:
-    Not enough money: Your account does not contain enough money
-    Not enough coins: Your inventory does not contain enough coins
-    Wrong change: You do not have the proper change for this transaction
-    Invalid character: This field only accepts numbers
-    Invalid amount: Text field contains an invalid amount
+  Default: en-CA
