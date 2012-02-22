@@ -15,7 +15,7 @@ import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
-import dev.mCraft.Coinz.GUI.VaultInv.KeypadPopup;
+import dev.mCraft.Coinz.GUI.Keypad.KeypadPopup;
 import dev.mCraft.Coinz.Serializer.PersistPasswords;
 import dev.mCraft.Coinz.Serializer.PersistVault;
 

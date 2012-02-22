@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import org.bukkit.Location;
 
-import dev.mCraft.Coinz.GUI.VaultInv.KeypadPopup;
+import dev.mCraft.Coinz.GUI.Keypad.KeypadPopup;
 
 public class PersistPasswords implements Serializable {
 	public static PersistPasswords hook;

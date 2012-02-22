@@ -13,7 +13,7 @@ import org.getspout.spoutapi.material.block.GenericCuboidCustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
-import dev.mCraft.Coinz.GUI.VaultInv.KeypadPopup;
+import dev.mCraft.Coinz.GUI.Keypad.KeypadPopup;
 import dev.mCraft.Coinz.Serializer.PersistVault;
 
 public class Vault extends GenericCuboidCustomBlock {

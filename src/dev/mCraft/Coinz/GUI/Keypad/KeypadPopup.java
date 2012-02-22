@@ -1,4 +1,4 @@
-package dev.mCraft.Coinz.GUI.VaultInv;
+package dev.mCraft.Coinz.GUI.Keypad;
 
 import org.getspout.spoutapi.gui.Color;
 import org.getspout.spoutapi.gui.GenericButton;
@@ -8,6 +8,7 @@ import org.getspout.spoutapi.gui.GenericTexture;
 import org.getspout.spoutapi.gui.RenderPriority;
 
 import dev.mCraft.Coinz.Coinz;
+import dev.mCraft.Coinz.Lang.CLang;
 
 public class KeypadPopup extends GenericPopup {
 	public Coinz plugin = Coinz.instance;
@@ -62,13 +63,15 @@ public class KeypadPopup extends GenericPopup {
 		enter = new GenericButton();
 		cancel = new GenericButton();
 		
-		X = 159;
+		X = 165;
 		Y = 88;
 		
 		bheight = 13;
 		bwidth = 20;
 		
 		background.setUrl("spoutcraft/cache/Coinz/KeyPad.png");
+		background.setX(X-5).setY(Y-5);
+		background.setHeight(59).setWidth(115);
 		background.setPriority(RenderPriority.Low);
 		
 		pass.setEnabled(false);
@@ -137,17 +140,17 @@ public class KeypadPopup extends GenericPopup {
 		pound.setHeight(bheight).setWidth(bwidth);
 		pound.setPriority(RenderPriority.Normal);
 		
-		corr.setText("Corr").setColor(new Color(1.0F, 1.0F, 0, 1.0F));
+		corr.setText(CLang.lookup("button_corr")).setColor(new Color(1.0F, 1.0F, 0, 1.0F));
 		corr.setX(X+80).setY(Y);
 		corr.setHeight(bheight).setWidth(bwidth+5);
 		corr.setPriority(RenderPriority.Normal);
 		
-		enter.setText("Enter");
+		enter.setText(CLang.lookup("button_enter"));
 		enter.setX(X+80).setY(Y+27);
 		enter.setHeight(bheight).setWidth(bwidth+5);
 		enter.setPriority(RenderPriority.Normal);
 		
-		cancel.setText("Cancel").setColor(new Color(1.0F, 0, 0, 1.0F));
+		cancel.setText(CLang.lookup("button_cancel")).setColor(new Color(1.0F, 0, 0, 1.0F));
 		cancel.setX(X+80).setY(Y+54);
 		cancel.setHeight(bheight).setWidth(bwidth+5);
 		cancel.setPriority(RenderPriority.Normal);
