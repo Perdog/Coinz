@@ -13,9 +13,14 @@ public class CoinzManager {
 	private static Coinz plugin = Coinz.instance;
 	private static CoinzManager instance = new CoinzManager();
 	
+	/**
+	 * Get an instance of the CoinzManager class
+	 * @return CoinzManager instance
+	 */
 	public static CoinzManager getInstance() {
 		return instance;
 	}
+	
 	/**
 	 * Gets the current economy provider that Coinz is using
 	 * @return Economy plugin
