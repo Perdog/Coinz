@@ -1,17 +1,27 @@
 main: dev.mCraft.Coinz.Coinz
 name: Coinz
 description: A spout plugin that adds a physical currency to the game.
-version: 0.2.2
+version: 0.2.3
 author: Perdog
+authors: [Perdog]
 depend: [Spout, Vault]
+commands:
+  coinz:
+    description: Opens the admin GUI
+    usage: |
+      /coinz admin
 permissions:
   coinz.*:
     description: Gives player all permissions.
     default: false
     children:
+      coinz.admin: true
       coinz.craft.teller: true
       coinz.craft.vault: true
       coinz.craft.goldcoin: true
+  coinz.admin:
+    description: Enables the user to use the admin GUI
+    default: false
   coinz.craft.teller:
     description: Allows the player to craft a teller.
     default: false

@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,10 +18,14 @@ import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import dev.mCraft.Coinz.Blocks.Blocks;
 import dev.mCraft.Coinz.Coins.Items;
+import dev.mCraft.Coinz.GUI.AdminListener;
 import dev.mCraft.Coinz.GUI.KeyPadListener;
 import dev.mCraft.Coinz.GUI.TellerScreenListener;
+import dev.mCraft.Coinz.GUI.Admin.AdminPopup;
 import dev.mCraft.Coinz.Lang.CLang;
 import dev.mCraft.Coinz.Listeners.BlockListener;
 import dev.mCraft.Coinz.Listeners.InventoryListener;
@@ -139,6 +146,25 @@ public class Coinz extends JavaPlugin {
 		log.info(name + " has been disabled");
 	}
 	
+	//Command for the admin popup
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] split) {
+		SpoutPlayer player = null;
+		
+		if (sender instanceof Player) {
+			player = (SpoutPlayer) sender;
+		}
+		
+		if (perm.has(sender, "coinz.admin") && cmd.getName().equalsIgnoreCase("coinz")) {
+			if (split.length == 1 && split[0].equalsIgnoreCase("admin")) {
+				player.getMainScreen().attachPopupScreen(new AdminPopup());
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public void registerListeners() {
 		new BlockListener();
 		new InventoryListener();
@@ -148,13 +174,14 @@ public class Coinz extends JavaPlugin {
 		
 		new KeyPadListener();
 		new TellerScreenListener();
+		new AdminListener();
 		
 		new PersistVault();
 		new PersistPasswords();
 	}
 	
 	public void createBlocks() {
-		new Blocks();
+		new Blocks("Default_Textures");
 		
 		blocks = Blocks.hook;
 		
@@ -170,7 +197,7 @@ public class Coinz extends JavaPlugin {
 	}
 	
 	public void createItems() {
-		new Items();
+		new Items("default_textures");
 		
 		items = Items.hook;
 		
