@@ -68,6 +68,14 @@ public class CoinzManager {
 	public static CustomItem getCopperCoin() {
 		return plugin.copperCoin;
 	}
+	
+	/**
+	 * Gets the half bronze coin item
+	 * @return Half-Bronze coin
+	 */
+	public static CustomItem getHalfBronzeCoin() {
+		return plugin.halfbronzeCoin;
+	}
 
 	/**
 	 * Gets the bronze coin item
@@ -75,6 +83,14 @@ public class CoinzManager {
 	 */
 	public static CustomItem getBronzeCoin() {
 		return plugin.bronzeCoin;
+	}
+	
+	/**
+	 * Gets the half silver coin item
+	 * @return Half-Silver coin
+	 */
+	public static CustomItem getHalfSilverCoin() {
+		return plugin.halfsilverCoin;
 	}
 
 	/**
@@ -84,6 +100,14 @@ public class CoinzManager {
 	public static CustomItem getSilverCoin() {
 		return plugin.silverCoin;
 	}
+	
+	/**
+	 * Gets the half gold coin item
+	 * @return Half-Gold coin
+	 */
+	public static CustomItem getHalfGoldCoin() {
+		return plugin.halfgoldCoin;
+	}
 
 	/**
 	 * Get the gold coin item
@@ -91,6 +115,14 @@ public class CoinzManager {
 	 */
 	public static CustomItem getGoldCoin() {
 		return plugin.goldCoin;
+	}
+	
+	/**
+	 * Gets the half platinum coin item
+	 * @return Half-Platinum coin
+	 */
+	public static CustomItem getHalfPlatinumCoin() {
+		return plugin.halfplatinumCoin;
 	}
 
 	/**
