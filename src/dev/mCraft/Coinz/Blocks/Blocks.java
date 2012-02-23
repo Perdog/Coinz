@@ -9,20 +9,29 @@ public class Blocks {
 	private static Coinz plugin = Coinz.instance;
 	public static Blocks hook;
 	
-	public static String textureUrl = "spoutcraft/cache/Coinz/PluginImages.png";
+	private String pack;
+	public static String textureUrl;
 	public static int spriteSize = 16;
 	public static int textureSize = 256;
 
-	public static Texture texture = new Texture(plugin, textureUrl, textureSize, textureSize, spriteSize);
+	public static Texture texture;
 	
 	public Teller teller;
 	public Vault vault;
 	
-	public Blocks() {
+	public Blocks(String newPack) {
 		hook = this;
+		this.pack = newPack;
+		
+		textureUrl = "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/" + pack + "/PluginImages.png";
+		texture = new Texture(plugin, textureUrl, textureSize, textureSize, spriteSize);
 		
 		teller = new Teller();
 		vault = new Vault();
+	}
+	
+	public void setTexture(String newText) {
+		textureUrl = newText;
 	}
 
 }

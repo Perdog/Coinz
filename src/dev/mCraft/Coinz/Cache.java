@@ -16,19 +16,22 @@ public class Cache {
 		
 		fm = SpoutManager.getFileManager();
 		
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/PluginImages.png"), "PluginImages.png");
+		fm.getCache(plugin).clear();
+		
+		//fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/PluginImages.png");
+		
 		CoinzManager.getLogger().info(plugin.tag + " Block designs have been loaded");
 		
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/CopperCoin.png"), "CopperCoin.png");
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/HalfBronzeCoin.png"), "HalfBronzeCoin.png");
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/BronzeCoin.png"), "BronzeCoin.png");
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/HalfSilverCoin.png"), "HalfSilverCoin.png");
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/SilverCoin.png"), "SilverCoin.png");
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/HalfGoldCoin.png"), "HalfGoldCoin.png");
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/GoldCoin.png"), "GoldCoin.png");
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/HalfPlatinumCoin.png"), "HalfPlatinumCoin.png");
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/PlatinumCoin.png"), "PlatinumCoin.png");
-		fm.addToPreLoginCache(plugin, plugin.getResource("Images/GuiScreen.png"), "GuiScreen.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/CopperCoin.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/HalfBronzeCoin.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/BronzeCoin.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/HalfSilverCoin.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/SilverCoin.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/HalfGoldCoin.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/GoldCoin.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/HalfPlatinumCoin.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/PlatinumCoin.png");
+		fm.addToPreLoginCache(plugin, "http://dl.dropbox.com/u/36338911/Coinz/Coinz_textures/default_textures/GuiScreen.png");
 		
 		CoinzManager.getLogger().info(plugin.tag + " Item images have been loaded");
 	}
