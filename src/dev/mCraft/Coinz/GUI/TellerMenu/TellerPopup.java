@@ -103,7 +103,7 @@ public class TellerPopup extends GenericPopup {
 		//backGround.setPriority(RenderPriority.Highest);
 		
 		escape.setText("X").setColor(new Color(1.0F, 0, 0, 1.0F));
-		escape.setTooltip(CLang.lookup("tooltips_escape"));
+		escape.setTooltip(CLang.lookup("tooltip_escape"));
 		escape.setX(287).setY(84);
 		escape.setHeight(10).setWidth(10);
 		escape.setPriority(RenderPriority.Normal);
