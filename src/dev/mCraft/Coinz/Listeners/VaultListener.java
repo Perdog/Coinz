@@ -121,39 +121,8 @@ public class VaultListener implements Listener {
 			cursor = new SpoutItemStack(event.getCursor());
 			
 			if (cursor != null) {
-				
 				VaultStoreEvent storeEvent = new VaultStoreEvent(player, cursor);
 				Bukkit.getServer().getPluginManager().callEvent(storeEvent);
-				
-				SpoutItemStack item = storeEvent.getItemStack();
-				
-				if (slotNum == 0 && item.getDurability() != Coinz.CopperCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 1 && item.getDurability() != Coinz.HalfBronzeCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 2 && item.getDurability() != Coinz.BronzeCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 3 && item.getDurability() != Coinz.HalfSilverCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 4 && item.getDurability() != Coinz.SilverCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 5 && item.getDurability() != Coinz.HalfGoldCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 6 && item.getDurability() != Coinz.GoldCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 7 && item.getDurability() != Coinz.HalfPlatinumCoin.getDurability()) {
-					event.setCancelled(true);
-				}
-				else if (slotNum == 8 && item.getDurability() != Coinz.PlatinumCoin.getDurability()) {
-					event.setCancelled(true);
-				}
 			}
 			else {
 				VaultTakeEvent takeEvent = new VaultTakeEvent(player, slot);

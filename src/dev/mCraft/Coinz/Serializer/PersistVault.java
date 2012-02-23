@@ -14,8 +14,6 @@ import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
-
-import dev.mCraft.Coinz.Coinz;
  
 public class PersistVault implements Serializable {
 	public static PersistVault hook;
@@ -33,12 +31,13 @@ public class PersistVault implements Serializable {
     	
     	stacks = new VaultStore[9];
     	
-    	for (ItemStack item : inv.getContents()) {
+    	ItemStack[] contents = inv.getContents();
+    	
+    	for (int i = 0; i < contents.length; i++) {
+    		ItemStack item = contents[i];
     		if (item != null) {
     			SpoutItemStack stack = new SpoutItemStack(item);
-    			for (int i = 0; i < stacks.length; i++) {
-    				if (stacks[i] == null) stacks[i] = new VaultStore(this.serialize(stack));
-    			}
+    			stacks[i] = new VaultStore(this.serialize(stack));
     		}
     	}
     	
@@ -59,39 +58,15 @@ public class PersistVault implements Serializable {
         in.close();
         stream.close();
         
-        for(VaultStore stack : loaded) {
+        for (int i = 0; i < loaded.length; i++) {
+        	VaultStore stack = loaded[i];
+        	
         	if (stack != null) {
         		SpoutItemStack item = stack.convert();
-        		if (item.getDurability() == Coinz.CopperCoin.getDurability()) {
-        			inv.setItem(0, item);
-        		}
-        		if (item.getDurability() == Coinz.HalfBronzeCoin.getDurability()) {
-        			inv.setItem(1, item);
-        		}
-        		if (item.getDurability() == Coinz.BronzeCoin.getDurability()) {
-        			inv.setItem(2, item);
-        		}
-        		if (item.getDurability() == Coinz.HalfSilverCoin.getDurability()) {
-        			inv.setItem(3, item);
-        		}
-        		if (item.getDurability() == Coinz.SilverCoin.getDurability()) {
-        			inv.setItem(4, item);
-        		}
-        		if (item.getDurability() == Coinz.HalfGoldCoin.getDurability()) {
-        			inv.setItem(5, item);
-        		}
-        		if (item.getDurability() == Coinz.GoldCoin.getDurability()) {
-        			inv.setItem(6, item);
-        		}
-        		if (item.getDurability() == Coinz.HalfPlatinumCoin.getDurability()) {
-        			inv.setItem(7, item);
-        		}
-        		if (item.getDurability() == Coinz.PlatinumCoin.getDurability()) {
-        			inv.setItem(8, item);
-        		}
+        		
+        		inv.setItem(i, item);
         	}
         }
-        
         return inv;
     }
     
