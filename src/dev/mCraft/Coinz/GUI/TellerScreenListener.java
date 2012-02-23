@@ -89,24 +89,26 @@ public class TellerScreenListener implements Listener {
 		tellerPopup = TellerPopup.hook;
 		player = event.getPlayer();
 		
-		if (tellerPopup.containsWidget(tellerPopup.notEnoughA)) {
-			tellerPopup.removeWidget(tellerPopup.notEnoughA);
-		}
-		
-		if (tellerPopup.containsWidget(tellerPopup.notEnoughC)) {
-			tellerPopup.removeWidget(tellerPopup.notEnoughC);
-		}
-		
-		if (tellerPopup.containsWidget(tellerPopup.wrongChange)) {
-			tellerPopup.removeWidget(tellerPopup.wrongChange);
-		}
-		
-		if (tellerPopup.containsWidget(tellerPopup.invalidChar)) {
-			tellerPopup.removeWidget(tellerPopup.invalidChar);
-		}
-		
-		if (tellerPopup.containsWidget(tellerPopup.invalidAmount)) {
-			tellerPopup.removeWidget(tellerPopup.invalidAmount);
+		if (tellerPopup != null) {
+			if (tellerPopup.containsWidget(tellerPopup.notEnoughA)) {
+				tellerPopup.removeWidget(tellerPopup.notEnoughA);
+			}
+			
+			if (tellerPopup.containsWidget(tellerPopup.notEnoughC)) {
+				tellerPopup.removeWidget(tellerPopup.notEnoughC);
+			}
+			
+			if (tellerPopup.containsWidget(tellerPopup.wrongChange)) {
+				tellerPopup.removeWidget(tellerPopup.wrongChange);
+			}
+			
+			if (tellerPopup.containsWidget(tellerPopup.invalidChar)) {
+				tellerPopup.removeWidget(tellerPopup.invalidChar);
+			}
+			
+			if (tellerPopup.containsWidget(tellerPopup.invalidAmount)) {
+				tellerPopup.removeWidget(tellerPopup.invalidAmount);
+			}
 		}
 	}
 }
