@@ -1,4 +1,4 @@
-version: 0.2.2
+version: 0.2.3
 lang: en-CA
 
 # This is the default language file. To make a file in your language, simply copy this file and
@@ -19,6 +19,8 @@ button_withdraw: Withdraw
 button_cancel: Cancel
 button_corr: Corr
 button_enter: Enter
+button_done: Done
+button_apply: Apply
 
 # Errors
 error_IA: Text field contains an invalid amount
@@ -34,6 +36,23 @@ label_title: %player%'s bank
 # Place holders
 placeholder_keypad: Enter password
 placeholder_teller: Enter amout
+placeholder_copp_url: Copper coin URL
+placeholder_hbron_url: Half-Bronze coin URL
+placeholder_bron_url: Bronze coin URL
+placeholder_hsilv_url: Half-Silver coin URL
+placeholder_silv_url: Silver coin URL
+placeholder_hgold_url: Half-Gold coin URL
+placeholder_gold_url: Gold coin URL
+placeholder_hplat_url: Half-Platinum coin URL
+placeholder_plat_url: Platinum coin URL
+placeholder_blocks_url: Block images URL
+
+# Radio buttons
+radio_default: Default textures
+radio_dg_tal: DG_Tal's textures
+radio_galloway: Galloway's textures
+radio_bow: Bow's textures
+radio_other: Other
 
 # ToolTips
 tooltip_copper: Copper coin value: $0.1
@@ -44,3 +63,4 @@ tooltip_platinum: Platinum coin value: $1000
 tooltip_escape: Close the popup
 tooltip_withdraw: Withdraw coins from your account
 tooltip_deposit: Deposit coins into your account
+tooltip_apply: Apply the selected texture pack
