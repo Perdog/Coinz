@@ -48,37 +48,40 @@ public class TellerScreenListener implements Listener {
 		enter = tellerPopup.enter;
 		
 		if (button.getText() != null && button.getPlugin() == plugin) {
+			String text = enter.getText();
 			
 			if (button.getId() == tellerPopup.escape.getId()) {
 				player.closeActiveWindow();
 			}
 			
 			if (button.getId() == tellerPopup.deposit.getId()) {
-				try {
-					amount = Double.parseDouble(enter.getText());
+				if (!text.isEmpty()) {
+					try {
+						amount = Double.valueOf(text);
+					}
+					catch (Exception e) {
+						tellerPopup.attachWidget(plugin, tellerPopup.invalidChar);
+						enter.setText("");
+						return;
+					}
+					
+					customer.depositCoins(amount);
 				}
-				catch (Exception e) {
-					tellerPopup.attachWidget(plugin, tellerPopup.invalidChar);
-					enter.setText("");
-					return;
-				}
-				
-				customer.depositCoins(amount);
-				player.closeActiveWindow();
 			}
 			
 			if (button.getId() == tellerPopup.withdraw.getId()) {
-				try {
-					amount = Double.parseDouble(enter.getText());
+				if (!text.isEmpty()) {
+					try {
+						amount = Double.valueOf(text);
+					}
+					catch (Exception e) {
+						tellerPopup.attachWidget(plugin, tellerPopup.invalidChar);
+						enter.setText("");
+						return;
+					}
+					
+					customer.withdrawCoins(amount);
 				}
-				catch (Exception e) {
-					tellerPopup.attachWidget(plugin, tellerPopup.invalidChar);
-					enter.setText("");
-					return;
-				}
-				
-				customer.withdrawCoins(amount);
-				player.closeActiveWindow();
 			}
 		}
 	}

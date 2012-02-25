@@ -28,6 +28,10 @@ public class AdminListener implements Listener {
 	public void radioClick(ButtonClickEvent event) {
 		hook = AdminPopup.hook;
 		
+		if (hook == null) {
+			return;
+		}
+		
 		Button button = event.getButton();
 		
 		if (button.getText() != null && button.getPlugin() == plugin) {
@@ -45,6 +49,10 @@ public class AdminListener implements Listener {
 	public void doneAndCancel(ButtonClickEvent event) {
 		hook = AdminPopup.hook;
 		
+		if ( hook == null) {
+			return;
+		}
+		
 		Button button = event.getButton();
 		SpoutPlayer player = event.getPlayer();
 		
@@ -61,6 +69,11 @@ public class AdminListener implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void applyButton(ButtonClickEvent event) {
 		hook = AdminPopup.hook;
+		
+		if (hook == null) {
+			return;
+		}
+		
 		items = Items.hook;
 		blocks = Blocks.hook;
 		
