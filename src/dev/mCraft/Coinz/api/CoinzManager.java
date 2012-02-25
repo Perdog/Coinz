@@ -134,22 +134,42 @@ public class CoinzManager {
 		return plugin.platinumCoin;
 	}
 	
+	/**
+	 * Get a new itemstack containing 1 copper coin
+	 * @return copper itemstack
+	 */
 	public static SpoutItemStack getCopperStack() {
 		return new SpoutItemStack(getCopperCoin(), 1);
 	}
 	
+	/**
+	 * Get a new itemstack containing 1 bronze coin
+	 * @return bronze itemstack
+	 */
 	public static SpoutItemStack getBronzeStack() {
 		return new SpoutItemStack(getBronzeCoin(), 1);
 	}
 	
+	/**
+	 * Get a new itemstack containing 1 silver coin
+	 * @return silver itemstack
+	 */
 	public static SpoutItemStack getSilverStack() {
 		return new SpoutItemStack(getSilverCoin(), 1);
 	}
 	
+	/**
+	 * Get a new itemstack containing 1 gold coin
+	 * @return gold itemstack
+	 */
 	public static SpoutItemStack getGoldStack() {
 		return new SpoutItemStack(getGoldCoin(), 1);
 	}
 	
+	/**
+	 * Get a new itemstack containing 1 platinum coin
+	 * @return platinum itemstack
+	 */
 	public static SpoutItemStack getPlatinumStack() {
 		return new SpoutItemStack(getPlatinumCoin(), 1);
 	}

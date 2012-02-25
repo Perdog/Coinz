@@ -1,8 +1,6 @@
 package dev.mCraft.Coinz.api;
 
 import java.math.BigDecimal;
-import java.util.logging.Logger;
-
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
