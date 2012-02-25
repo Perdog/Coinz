@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
 
+import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 
@@ -131,6 +132,26 @@ public class CoinzManager {
 	 */
 	public static CustomItem getPlatinumCoin() {
 		return plugin.platinumCoin;
+	}
+	
+	public static SpoutItemStack getCopperStack() {
+		return new SpoutItemStack(getCopperCoin(), 1);
+	}
+	
+	public static SpoutItemStack getBronzeStack() {
+		return new SpoutItemStack(getBronzeCoin(), 1);
+	}
+	
+	public static SpoutItemStack getSilverStack() {
+		return new SpoutItemStack(getSilverCoin(), 1);
+	}
+	
+	public static SpoutItemStack getGoldStack() {
+		return new SpoutItemStack(getGoldCoin(), 1);
+	}
+	
+	public static SpoutItemStack getPlatinumStack() {
+		return new SpoutItemStack(getPlatinumCoin(), 1);
 	}
 
 	/**
