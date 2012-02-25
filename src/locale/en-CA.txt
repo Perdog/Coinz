@@ -10,7 +10,7 @@ lang: en-CA
 # All lines starting with # are ignored, all blank lines are also ignored.
 
 # Feel free to submit the language files you create to me, and I'll include them in future versions.
-# I will not keep them up to date though, as I only speak english, and google translate isn't
+# I will not keep them up to date though, as I can only speak english, and google translate isn't
 # 100% reliable.
 
 # Buttons

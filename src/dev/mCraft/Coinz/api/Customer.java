@@ -1,9 +1,11 @@
 package dev.mCraft.Coinz.api;
 
+import java.math.BigDecimal;
+import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-
 import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.GenericTextField;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
@@ -28,7 +30,7 @@ public class Customer {
 	private PlayerInventory inv;
 	private SpoutItemStack stack;
 	private short dur;
-	private double temp;
+	private BigDecimal temp;
 	
 	private GenericTextField enter = tellerPopup.enter;
 	private GenericLabel balance = tellerPopup.amount;
@@ -47,7 +49,6 @@ public class Customer {
 		this.inv = player.getInventory();
 	}
 	
-	
 	/**
 	 * Tries to deposit money into the players account and remove the coins from the inventory
 	 * @param deposit Double
@@ -61,7 +62,7 @@ public class Customer {
 		double amount = event.getAmount();
 		
 		if (!event.isCancelled() && hasEnoughCoins(amount)) {
-			temp = amount;
+			temp = BigDecimal.valueOf(amount);
 			
 			for (ItemStack item : inv.getContents()) {
 				if (item != null) {
@@ -69,71 +70,71 @@ public class Customer {
 					dur = stack.getDurability();
 					
 					if (stack.isCustomItem()) {
-						if (dur == Coinz.CopperCoin.getDurability()) {
+						if (dur == CoinzManager.getCopperStack().getDurability()) {
 							copp = stack;
 						}
 						
-						if (dur == Coinz.BronzeCoin.getDurability()) {
+						if (dur == CoinzManager.getBronzeStack().getDurability()) {
 							bron = stack;
 						}
 						
-						if (dur == Coinz.SilverCoin.getDurability()) {
+						if (dur == CoinzManager.getSilverStack().getDurability()) {
 							silv = stack;
 						}
 						
-						if (dur == Coinz.GoldCoin.getDurability()) {
+						if (dur == CoinzManager.getGoldStack().getDurability()) {
 							gold = stack;
 						}
 						
-						if (dur == Coinz.PlatinumCoin.getDurability()) {
+						if (dur == CoinzManager.getPlatinumStack().getDurability()) {
 							plat = stack;
 						}
 					}
 				}
 			}
 			
-			if (plat != null && plat.getDurability() == Coinz.PlatinumCoin.getDurability()) {
-				while (plat.getAmount() >=1 && temp >= 1000) {
-					inv.removeItem(Coinz.PlatinumCoin);
-					temp = temp - 1000;
+			if (plat != null) {
+				while (plat.getAmount() >=1 && temp.doubleValue() >= 1000) {
+					inv.removeItem(CoinzManager.getPlatinumStack());
+					temp = temp.subtract(BigDecimal.valueOf(1000));
 					plat.setAmount(plat.getAmount() - 1);
 				}
 			}
 			
-			if (gold != null && gold.getDurability() == Coinz.GoldCoin.getDurability()) {
-				while (gold.getAmount() >= 1 && temp >= 100) {
-					inv.removeItem(Coinz.GoldCoin);
-					temp = temp - 100;
+			if (gold != null) {
+				while (gold.getAmount() >= 1 && temp.doubleValue() >= 100) {
+					inv.removeItem(CoinzManager.getGoldStack());
+					temp = temp.subtract(BigDecimal.valueOf(100));
 					gold.setAmount(gold.getAmount() - 1);
 				}
 			}
 			
-			if (silv != null && silv.getDurability() == Coinz.SilverCoin.getDurability()) {
-				while (silv.getAmount() >= 1 && temp >= 10) {
-					inv.removeItem(Coinz.SilverCoin);
-					temp = temp - 10;
+			if (silv != null) {
+				while (silv.getAmount() >= 1 && temp.doubleValue() >= 10) {
+					inv.removeItem(CoinzManager.getSilverStack());
+					temp = temp.subtract(BigDecimal.valueOf(10));
 					silv.setAmount(silv.getAmount() - 1);
 				}
 			}
 			
-			if (bron != null && bron.getDurability() == Coinz.BronzeCoin.getDurability()) {
-				while (bron.getAmount() >= 1 && temp >= 1) {
-					inv.removeItem(Coinz.BronzeCoin);
-					temp = temp - 1;
+			if (bron != null) {
+				while (bron.getAmount() >= 1 && temp.doubleValue() >= 1) {
+					inv.removeItem(CoinzManager.getBronzeStack());
+					temp = temp.subtract(BigDecimal.valueOf(1));
 					bron.setAmount(bron.getAmount() - 1);
 				}
 			}
 			
-			if (copp != null && copp.getDurability() == Coinz.CopperCoin.getDurability()) {
-				while (copp.getAmount() >= 1 && temp >= 0.1) {
-					inv.removeItem(Coinz.CopperCoin);
-					temp = temp - 0.1;
+			if (copp != null) {
+				while (copp.getAmount() >= 1 && temp.doubleValue() >= 0.1) {
+					inv.removeItem(CoinzManager.getCopperStack());
+					temp = temp.subtract(BigDecimal.valueOf(0.1));
 					copp.setAmount(copp.getAmount() - 1);
 				}
 			}
 			
-			if (temp > 0) {
-				amount = amount - temp;
+			if (temp.doubleValue() > 0) {
+				amount = amount - temp.doubleValue();
 				tellerPopup.attachWidget(plugin, tellerPopup.wrongChange);
 				
 				while (amount >= 1000) {
@@ -162,10 +163,10 @@ public class Customer {
 				}
 			}
 			else {
-				plugin.econ.depositPlayer(player.getName(), amount);
+				CoinzManager.getEconomy().depositPlayer(player.getName(), amount);
 				player.sendMessage(amount + " has been added to your account");
 				enter.setText("");
-				balance.setText(plugin.econ.format(plugin.econ.getBalance(player.getName())));
+				balance.setText(CoinzManager.getEconomy().format(CoinzManager.getEconomy().getBalance(player.getName())));
 			}
 		}
 		
@@ -220,43 +221,8 @@ public class Customer {
 	 * @return True if they have enough coins
 	 */
 	public boolean hasEnoughCoins(double amount) {
-		double coin = 0;
-		
-		for (ItemStack item : inv.getContents()) {
-			if (item != null) {
-				stack = new SpoutItemStack(item);
-				dur = stack.getDurability();
-				
-				if (stack.isCustomItem()) {
-					if (dur == Coinz.CopperCoin.getDurability()) {
-						coin = coin + (stack.getAmount() * 0.1);
-					}
-					
-					if (dur == Coinz.BronzeCoin.getDurability()) {
-						coin = coin + (stack.getAmount() * 1);
-					}
-					
-					if (dur == Coinz.SilverCoin.getDurability()) {
-						coin = coin + (stack.getAmount() * 10);
-					}
-					
-					if (dur == Coinz.GoldCoin.getDurability()) {
-						coin = coin + (stack.getAmount() * 100);
-					}
-					
-					if (dur == Coinz.PlatinumCoin.getDurability()) {
-						coin = coin + (stack.getAmount() * 1000);
-					}
-				}
-			}
-		}
-		
-		if (coin >= amount) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		if (getCoins() >= amount) return true;
+		return false;
 	}
 
 	
@@ -272,37 +238,37 @@ public class Customer {
 		
 		double amount = event.getAmount();
 		
-		if (plugin.econ.has(player.getName(), amount)) {
+		if (CoinzManager.getEconomy().has(player.getName(), amount)) {
 			
-			temp = amount;
+			temp = BigDecimal.valueOf(amount);
 			
-			while (temp >= 1000) {
+			while (temp.doubleValue() >= 1000) {
 				inv.addItem(Coinz.PlatinumCoin);
-				temp = temp - 1000;
+				temp = temp.subtract(BigDecimal.valueOf(1000));
 			}
 			
-			while (temp >= 100) {
+			while (temp.doubleValue() >= 100) {
 				inv.addItem(Coinz.GoldCoin);
-				temp = temp - 100;
+				temp = temp.subtract(BigDecimal.valueOf(100));
 			}
 			
-			while (temp >= 10) {
+			while (temp.doubleValue() >= 10) {
 				inv.addItem(Coinz.SilverCoin);
-				temp = temp - 10;
+				temp = temp.subtract(BigDecimal.valueOf(10));
 			}
 			
-			while (temp >= 1) {
+			while (temp.doubleValue() >= 1) {
 				inv.addItem(Coinz.BronzeCoin);
-				temp = temp - 1;
+				temp = temp.subtract(BigDecimal.valueOf(1));
 			}
 			
-			while (temp >= 0.1) {
+			while (temp.doubleValue() >= .1) {
 				inv.addItem(Coinz.CopperCoin);
-				temp = temp - 0.1;
+				temp = temp.subtract(BigDecimal.valueOf(0.1));
 			}
 			
-			if (temp > 0) {
-				amount = amount - temp;
+			if (temp.doubleValue() > 0) {
+				amount = amount - temp.doubleValue();
 				
 				tellerPopup.attachWidget(plugin, tellerPopup.invalidAmount);
 				enter.setText("");
@@ -338,6 +304,7 @@ public class Customer {
 				
 				while (amount >= 1000) {
 					if (plat != null && plat.getAmount() >= 1) {
+						inv.removeItem(CoinzManager.getPlatinumStack());
 						plat.setAmount(plat.getAmount() - 1);
 						amount = amount - 1000;
 					}
@@ -345,6 +312,7 @@ public class Customer {
 				
 				while (amount >= 100) {
 					if (gold != null && gold.getAmount() >= 1) {
+						inv.removeItem(CoinzManager.getGoldStack());
 						gold.setAmount(gold.getAmount() - 1);
 						amount = amount - 100;
 					}
@@ -352,6 +320,7 @@ public class Customer {
 				
 				while (amount >= 10) {
 					if (silv != null && silv.getAmount() >= 1) {
+						inv.removeItem(CoinzManager.getSilverStack());
 						silv.setAmount(silv.getAmount() - 1);
 						amount = amount - 10;
 					}
@@ -359,6 +328,7 @@ public class Customer {
 				
 				while (amount >= 1) {
 					if (bron != null && bron.getAmount() >= 1) {
+						inv.removeItem(CoinzManager.getBronzeStack());
 						bron.setAmount(bron.getAmount() - 1);
 						amount = amount - 1;
 					}
@@ -366,6 +336,7 @@ public class Customer {
 					
 				while (amount >= 0.1) {
 					if (copp != null && copp.getAmount() >= 1) {
+						inv.removeItem(CoinzManager.getCopperStack());
 						copp.setAmount(copp.getAmount() - 1);
 						amount = amount - 0.1;
 					}
@@ -373,10 +344,10 @@ public class Customer {
 			}
 			
 			else {
-				plugin.econ.withdrawPlayer(player.getName(), amount);
+				CoinzManager.getEconomy().withdrawPlayer(player.getName(), amount);
 				player.sendMessage(amount + " " + "has been taken from your account");
 				enter.setText("");
-				balance.setText(plugin.econ.format(plugin.econ.getBalance(player.getName())));
+				balance.setText(CoinzManager.getEconomy().format(CoinzManager.getEconomy().getBalance(player.getName())));
 			}
 		}
 		
