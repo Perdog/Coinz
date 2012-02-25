@@ -9,14 +9,14 @@ import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.material.MaterialData;
-import org.getspout.spoutapi.material.block.GenericCuboidCustomBlock;
+import org.getspout.spoutapi.material.block.GenericCustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.Keypad.KeypadPopup;
 import dev.mCraft.Coinz.Serializer.PersistVault;
 
-public class Vault extends GenericCuboidCustomBlock {
+public class Vault extends GenericCustomBlock {
 	
 	private static Coinz plugin = Coinz.instance;
 	public static Vault hook = null;

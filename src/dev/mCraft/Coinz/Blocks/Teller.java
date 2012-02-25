@@ -4,13 +4,13 @@ import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.MaterialData;
-import org.getspout.spoutapi.material.block.GenericCuboidCustomBlock;
+import org.getspout.spoutapi.material.block.GenericCustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import dev.mCraft.Coinz.Coinz;
 import dev.mCraft.Coinz.GUI.TellerMenu.TellerPopup;
 
-public class Teller extends GenericCuboidCustomBlock {
+public class Teller extends GenericCustomBlock {
 	
 	private static Coinz plugin = Coinz.instance;
 	
